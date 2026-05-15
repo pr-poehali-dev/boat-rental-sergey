@@ -286,21 +286,21 @@ export function ContactsSection() {
               <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mx-auto mb-4">
                 <Icon name={c.icon as any} size={22} className="text-gold" />
               </div>
-              <p className="font-body text-xs text-white/50 tracking-wide uppercase mb-2">{c.title}</p>
+              <p className="font-body text-xs text-white tracking-wide uppercase mb-2">{c.title}</p>
               <p className="font-display text-lg font-semibold text-white mb-1">{c.value}</p>
-              <p className="font-body text-xs text-white/50">{c.sub}</p>
+              <p className="font-body text-xs text-white">{c.sub}</p>
             </div>
           ))}
         </div>
 
-        <div className="flex justify-center gap-5 mb-14">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-5 mb-14">
           {[
             { label: "WhatsApp", color: "#25D366", letter: "W", href: "https://wa.me/78005550010" },
             { label: "Telegram", color: "#2AABEE", letter: "T", href: "https://t.me/viatekrelax" },
             { label: "Max", color: "#FF6B35", letter: "M", href: "#" },
           ].map((m) => (
             <a key={m.label} href={m.href} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2.5 px-5 py-2.5 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full transition-all group">
+              className="w-full sm:w-auto flex items-center gap-2.5 px-5 py-2.5 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full transition-all group justify-center">
               <span className="w-7 h-7 rounded-full flex items-center justify-center text-white font-body font-bold text-sm flex-shrink-0"
                 style={{ backgroundColor: m.color }}>
                 {m.letter}

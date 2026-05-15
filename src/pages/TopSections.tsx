@@ -14,6 +14,7 @@ export function NavBar() {
     { id: "services", label: "Услуги" },
     { id: "reviews", label: "Отзывы" },
     { id: "about", label: "О нас" },
+    { id: "gallery", label: "Галерея" },
     { id: "faq", label: "FAQ" },
     { id: "contacts", label: "Контакты" },
   ];
