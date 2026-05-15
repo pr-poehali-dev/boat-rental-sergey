@@ -286,9 +286,9 @@ export function ContactsSection() {
               <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mx-auto mb-4">
                 <Icon name={c.icon as any} size={22} className="text-gold" />
               </div>
-              <p className="font-body text-xs text-white tracking-wide uppercase mb-2">{c.title}</p>
-              <p className="font-display text-lg font-semibold text-white mb-1">{c.value}</p>
-              <p className="font-body text-xs text-white">{c.sub}</p>
+              <p className="font-body text-xs tracking-wide uppercase mb-2" style={{ color: "#14556f" }}>{c.title}</p>
+              <p className="font-display text-lg font-semibold mb-1" style={{ color: "#14556f" }}>{c.value}</p>
+              <p className="font-body text-xs" style={{ color: "#14556f" }}>{c.sub}</p>
             </div>
           ))}
         </div>
@@ -312,13 +312,16 @@ export function ContactsSection() {
 
         {!sent ? (
           <div className="max-w-md mx-auto glass-card rounded-2xl p-8">
-            <h3 className="font-display text-2xl font-semibold text-white mb-6 text-center">Быстрая связь</h3>
+            <h3 className="font-display text-2xl font-semibold mb-6 text-center" style={{ color: "#14556f" }}>Быстрая связь</h3>
             <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="space-y-4">
-              <input className="w-full font-body text-sm px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-gold transition-all"
+              <input className="w-full font-body text-sm px-4 py-3 bg-white/10 border border-white/20 rounded-xl placeholder:text-white/40 focus:outline-none focus:border-gold transition-all"
+                style={{ color: "#14556f" }}
                 placeholder="Ваше имя" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-              <input className="w-full font-body text-sm px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-gold transition-all"
+              <input className="w-full font-body text-sm px-4 py-3 bg-white/10 border border-white/20 rounded-xl placeholder:text-white/40 focus:outline-none focus:border-gold transition-all"
+                style={{ color: "#14556f" }}
                 placeholder="Телефон" type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} required />
-              <textarea className="w-full font-body text-sm px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-gold transition-all resize-none"
+              <textarea className="w-full font-body text-sm px-4 py-3 bg-white/10 border border-white/20 rounded-xl placeholder:text-white/40 focus:outline-none focus:border-gold transition-all resize-none"
+                style={{ color: "#14556f" }}
                 placeholder="Ваш вопрос..." rows={3} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
 
               <label className="flex items-start gap-3 cursor-pointer">
@@ -328,7 +331,7 @@ export function ContactsSection() {
                   {form.agree && <Icon name="Check" size={12} className="text-navy" />}
                 </div>
                 <input type="checkbox" checked={form.agree} onChange={(e) => setForm({ ...form, agree: e.target.checked })} required className="sr-only" />
-                <span className="font-body text-xs text-white/60">
+                <span className="font-body text-xs" style={{ color: "#14556f" }}>
                   Согласен(а) с{" "}
                   <button type="button" onClick={() => setShowPrivacy(true)} className="text-gold underline hover:text-[hsl(var(--gold-light))]">
                     Политикой конфиденциальности
