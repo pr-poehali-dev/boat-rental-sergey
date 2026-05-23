@@ -1,0 +1,19 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Missing phone returns 400",
+      "method": "POST",
+      "path": "/",
+      "body": { "name": "Test", "phone": "", "formId": "otpform" },
+      "expectedStatus": 400,
+      "expectedBody": { "error": "Phone required" },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

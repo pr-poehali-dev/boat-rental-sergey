@@ -40,10 +40,45 @@ export function PrivacyModal({ onClose }: { onClose: () => void }) {
   );
 }
 
+function validatePhone(phone: string): boolean {
+  const digits = phone.replace(/\D/g, "");
+  return digits.length >= 10;
+}
+
+async function sendFormEmail(data: { name: string; phone: string; message?: string; formId: string }) {
+  try {
+    const res = await fetch("https://functions.poehali.dev/b5dbfd1f-fb97-41db-a28b-c1eef3de3c73", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 export function ConsultModal({ onClose }: { onClose: () => void }) {
   const [form, setForm] = useState({ name: "", phone: "", message: "", agree: false });
   const [sent, setSent] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validatePhone(form.phone)) {
+      setPhoneError("Введите корректный номер телефона");
+      return;
+    }
+    setPhoneError("");
+    setLoading(true);
+    await sendFormEmail({ name: form.name, phone: form.phone, message: form.message, formId: "otpform" });
+    setLoading(false);
+    setSent(true);
+  };
+
+  const fieldStyle = { color: "#14556f", borderColor: "#14556f" };
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
@@ -64,24 +99,30 @@ export function ConsultModal({ onClose }: { onClose: () => void }) {
 
         <div className="px-8 py-6">
           {!sent ? (
-            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <input
-                className="w-full font-body text-sm px-4 py-3 border border-border rounded-xl bg-white focus:outline-none focus:border-ocean focus:ring-1 focus:ring-ocean/30 transition-all placeholder:text-muted-foreground/60"
+                className="w-full font-body text-sm px-4 py-3 border rounded-xl bg-white focus:outline-none transition-all placeholder:text-[#14556f]/50"
+                style={fieldStyle}
                 placeholder="Ваше имя"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
               />
-              <input
-                className="w-full font-body text-sm px-4 py-3 border border-border rounded-xl bg-white focus:outline-none focus:border-ocean focus:ring-1 focus:ring-ocean/30 transition-all placeholder:text-muted-foreground/60"
-                placeholder="Телефон"
-                type="tel"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                required
-              />
+              <div>
+                <input
+                  className="w-full font-body text-sm px-4 py-3 border rounded-xl bg-white focus:outline-none transition-all placeholder:text-[#14556f]/50"
+                  style={{ ...fieldStyle, borderColor: phoneError ? "#ef4444" : "#14556f" }}
+                  placeholder="Телефон *"
+                  type="tel"
+                  value={form.phone}
+                  onChange={(e) => { setForm({ ...form, phone: e.target.value }); setPhoneError(""); }}
+                  required
+                />
+                {phoneError && <p className="font-body text-xs text-red-500 mt-1">{phoneError}</p>}
+              </div>
               <textarea
-                className="w-full font-body text-sm px-4 py-3 border border-border rounded-xl bg-white focus:outline-none focus:border-ocean focus:ring-1 focus:ring-ocean/30 transition-all resize-none placeholder:text-muted-foreground/60"
+                className="w-full font-body text-sm px-4 py-3 border rounded-xl bg-white focus:outline-none transition-all resize-none placeholder:text-[#14556f]/50"
+                style={fieldStyle}
                 placeholder="Ваш вопрос или пожелание..."
                 rows={3}
                 value={form.message}
@@ -108,14 +149,14 @@ export function ConsultModal({ onClose }: { onClose: () => void }) {
 
               <button
                 type="submit"
-                disabled={!form.agree}
+                disabled={!form.agree || loading}
                 className="w-full py-3 bg-navy text-[hsl(var(--gold-light))] font-body font-semibold rounded-xl hover:bg-ocean transition-colors text-sm disabled:opacity-50"
               >
-                Отправить заявку
+                {loading ? "Отправляем..." : "Отправить заявку"}
               </button>
             </form>
           ) : (
-            <div className="text-center py-6">
+            <div className="text-center py-6" id="otpform">
               <div className="w-16 h-16 rounded-full bg-ocean-pale flex items-center justify-center mx-auto mb-4">
                 <Icon name="CheckCircle" size={32} className="text-ocean" />
               </div>

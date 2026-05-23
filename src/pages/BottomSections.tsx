@@ -8,10 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SERVICES, REVIEWS, STATS, FAQ_ITEMS, GALLERY_PHOTOS } from "./data";
-import { scrollTo, StarRating, GoldDivider, PrivacyModal } from "./shared";
-
-const MARINA_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/files/f09295be-12c0-42f9-bf2a-652e6d7eb5b6.jpg";
-const INTERIOR_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/files/ceceed34-44ba-4637-b64a-9157e4f22944.jpg";
+import { scrollTo, StarRating, GoldDivider, PrivacyModal, ConsultModal } from "./shared";
 
 // ─── Services ─────────────────────────────────────────────────────────────────
 
@@ -21,14 +18,14 @@ export function ServicesSection() {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <p className="font-body text-xs text-ocean tracking-widest uppercase mb-3">Что мы предлагаем</p>
-          <h2 className="font-display text-4xl md:text-5xl font-light text-navy mb-4">Услуги</h2>
+          <h2 className="font-display text-4xl md:text-5xl font-light text-navy mb-4">Варианты отдыха с VolgaViatek</h2>
           <GoldDivider />
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SERVICES.map((s) => (
             <div key={s.title} className="group bg-white rounded-2xl p-7 hover-lift border border-white shadow-sm">
               <div className="w-12 h-12 rounded-xl ocean-gradient flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                <Icon name={s.icon as any} size={22} className="text-white" />
+                <Icon name={s.icon as any} size={22} className="text-white" fallback="Star" />
               </div>
               <h3 className="font-display text-xl font-semibold text-navy mb-2">{s.title}</h3>
               <p className="font-body text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
@@ -87,57 +84,66 @@ export function ReviewsSection() {
   );
 }
 
-// ─── About ────────────────────────────────────────────────────────────────────
+// ─── Gallery ──────────────────────────────────────────────────────────────────
 
-export function AboutSection() {
+function FullscreenSlider({ photos, startIndex, onClose }: { photos: typeof GALLERY_PHOTOS; startIndex: number; onClose: () => void }) {
+  const [current, setCurrent] = useState(startIndex);
+
+  const go = (dir: number) => setCurrent((c) => (c + dir + photos.length) % photos.length);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft") go(-1);
+      if (e.key === "ArrowRight") go(1);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
   return (
-    <section id="about" className="py-24 bg-pearl overflow-hidden">
-      <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="font-body text-xs text-ocean tracking-widest uppercase mb-3">О компании</p>
-            <h2 className="font-display text-4xl md:text-5xl font-light text-navy mb-6 leading-tight">
-              Восемь лет<br />
-              <span className="italic text-ocean">на Волге</span>
-            </h2>
-            <GoldDivider left />
-            <div className="space-y-5 font-body text-navy/70 leading-relaxed">
-              <p>Viatek-Relax — это команда профессионалов, влюблённых в реку. Мы основали компанию в 2016 году с одной яхтой и мечтой предоставлять сервис мирового уровня на Волге.</p>
-              <p>Сегодня наш флот насчитывает 12 судов, от элегантных парусников до 42-метровых супер-яхт. Каждое судно тщательно отобрано с безупречной репутацией.</p>
-              <p>Наши шкиперы — сертифицированные профессионалы с многолетним опытом. Мы создаём воспоминания, которые остаются на всю жизнь.</p>
-            </div>
-            <div className="mt-10 flex flex-wrap gap-4">
-              {[
-                { icon: "Award", text: "Лицензированный оператор" },
-                { icon: "Globe", text: "Весь Волжский регион" },
-                { icon: "PhoneCall", text: "Поддержка 24/7" },
-              ].map((item) => (
-                <div key={item.text} className="flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-sm">
-                  <Icon name={item.icon as any} size={15} className="text-ocean" />
-                  <span className="font-body text-xs text-navy font-medium">{item.text}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="relative h-[480px] hidden lg:block">
-            <img src={MARINA_IMG} alt="Наш флот" className="absolute top-0 right-0 w-4/5 h-72 object-cover rounded-2xl shadow-xl" />
-            <img src={INTERIOR_IMG} alt="Интерьер яхты" className="absolute bottom-0 left-0 w-3/5 h-56 object-cover rounded-2xl shadow-xl border-4 border-white" />
-            <div className="absolute bottom-28 right-0 bg-white rounded-xl p-4 shadow-lg w-36 text-center">
-              <div className="font-display text-3xl font-semibold text-navy">4.9</div>
-              <StarRating rating={5} />
-              <p className="font-body text-xs text-muted-foreground mt-1">1500+ отзывов</p>
-            </div>
-          </div>
-        </div>
+    <div className="fixed inset-0 z-[300] bg-black/96 flex items-center justify-center">
+      <button onClick={onClose}
+        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors">
+        <Icon name="X" size={20} className="text-white" />
+      </button>
+
+      <span className="absolute top-4 left-1/2 -translate-x-1/2 font-body text-sm text-white/50">
+        {current + 1} / {photos.length}
+      </span>
+
+      <button onClick={() => go(-1)}
+        className="absolute left-4 z-10 w-12 h-12 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors">
+        <Icon name="ChevronLeft" size={24} className="text-white" />
+      </button>
+
+      <div className="w-full h-full flex items-center justify-center px-20 py-16">
+        <img
+          src={photos[current].src}
+          alt={photos[current].alt}
+          className="max-w-full max-h-full object-contain rounded-xl"
+          style={{ maxHeight: "calc(100vh - 8rem)" }}
+        />
       </div>
-    </section>
+
+      <button onClick={() => go(1)}
+        className="absolute right-4 z-10 w-12 h-12 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors">
+        <Icon name="ChevronRight" size={24} className="text-white" />
+      </button>
+
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {photos.map((_, i) => (
+          <button key={i} onClick={() => setCurrent(i)}
+            className={`rounded-full transition-all duration-300 ${i === current ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/40 hover:bg-white/70"}`} />
+        ))}
+      </div>
+    </div>
   );
 }
 
-// ─── Gallery ──────────────────────────────────────────────────────────────────
-
 export function GallerySection() {
   const [current, setCurrent] = useState(0);
+  const [fullscreen, setFullscreen] = useState<number | null>(null);
   const total = GALLERY_PHOTOS.length;
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -161,44 +167,54 @@ export function GallerySection() {
   };
 
   const photos = [
-    { idx: getIdx(-1), scale: "scale-90 opacity-70", zIndex: "z-0", order: 0 },
-    { idx: getIdx(0),  scale: "scale-100 opacity-100", zIndex: "z-10", order: 1 },
-    { idx: getIdx(1),  scale: "scale-90 opacity-70", zIndex: "z-0", order: 2 },
+    { idx: getIdx(-1), scale: "scale-90 opacity-60", zIndex: "z-0" },
+    { idx: getIdx(0),  scale: "scale-100 opacity-100", zIndex: "z-10" },
+    { idx: getIdx(1),  scale: "scale-90 opacity-60", zIndex: "z-0" },
   ];
 
   return (
     <section id="gallery" className="py-24 bg-white overflow-hidden">
+      {fullscreen !== null && (
+        <FullscreenSlider
+          photos={GALLERY_PHOTOS}
+          startIndex={fullscreen}
+          onClose={() => setFullscreen(null)}
+        />
+      )}
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <p className="font-body text-xs text-ocean tracking-widest uppercase mb-3">Наши моменты</p>
           <h2 className="font-display text-4xl md:text-5xl font-light text-navy mb-4">Галерея</h2>
           <GoldDivider />
+          <p className="font-body text-sm text-muted-foreground mt-3">Нажмите на фото, чтобы просмотреть в полном размере</p>
         </div>
 
-        <div className="relative flex items-center justify-center gap-4 select-none" style={{ height: 380 }}>
+        <div className="relative flex items-center justify-center select-none" style={{ height: 380 }}>
           {photos.map((p, i) => (
             <div
               key={`${p.idx}-${i}`}
-              className={`absolute transition-all duration-500 ease-in-out rounded-2xl overflow-hidden shadow-xl ${p.scale} ${p.zIndex}`}
-              style={{
-                width: i === 1 ? "45%" : "30%",
-                height: i === 1 ? 340 : 280,
-                left: i === 0 ? "2.5%" : i === 1 ? "27.5%" : "67.5%",
-                top: i === 1 ? 0 : 30,
-                cursor: i !== 1 ? "pointer" : "default",
-              }}
-              onClick={() => i !== 1 && go(i === 0 ? -1 : 1)}
+              className={`absolute transition-all duration-500 ease-in-out rounded-2xl overflow-hidden shadow-lg ${p.scale} ${p.zIndex} cursor-pointer group`}
+              style={{ width: 300, height: 380 }}
+              onClick={() => { if (i === 1) setFullscreen(p.idx); }}
             >
-              <img
-                src={GALLERY_PHOTOS[p.idx].src}
-                alt={GALLERY_PHOTOS[p.idx].alt}
-                className="w-full h-full object-cover"
-              />
-              {i !== 1 && (
-                <div className="absolute inset-0 bg-navy/20 hover:bg-navy/10 transition-colors" />
+              <img src={GALLERY_PHOTOS[p.idx].src} alt={GALLERY_PHOTOS[p.idx].alt} className="w-full h-full object-cover" />
+              {i === 1 && (
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-white/0 group-hover:bg-white/90 transition-all flex items-center justify-center">
+                    <Icon name="ZoomIn" size={20} className="text-navy opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </div>
               )}
             </div>
           ))}
+          <button onClick={() => go(-1)}
+            className="absolute left-2 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:bg-white shadow-md transition-colors">
+            <Icon name="ChevronLeft" size={18} className="text-navy" />
+          </button>
+          <button onClick={() => go(1)}
+            className="absolute right-2 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:bg-white shadow-md transition-colors">
+            <Icon name="ChevronRight" size={18} className="text-navy" />
+          </button>
         </div>
 
         <div className="flex items-center justify-center gap-6 mt-10">
@@ -206,7 +222,6 @@ export function GallerySection() {
             className="w-11 h-11 rounded-full bg-pearl border border-border flex items-center justify-center hover:bg-ocean-pale hover:border-ocean transition-all">
             <Icon name="ChevronLeft" size={20} className="text-navy" />
           </button>
-
           <div className="flex gap-2">
             {GALLERY_PHOTOS.map((_, i) => (
               <button key={i} onClick={() => { setCurrent(i); startAutoplay(); }}
@@ -215,7 +230,6 @@ export function GallerySection() {
                 }`} />
             ))}
           </div>
-
           <button onClick={() => go(1)}
             className="w-11 h-11 rounded-full bg-pearl border border-border flex items-center justify-center hover:bg-ocean-pale hover:border-ocean transition-all">
             <Icon name="ChevronRight" size={20} className="text-navy" />
@@ -260,12 +274,13 @@ export function FaqSection() {
 
 export function ContactsSection() {
   const [showPrivacy, setShowPrivacy] = useState(false);
-  const [form, setForm] = useState({ name: "", phone: "", message: "", agree: false });
-  const [sent, setSent] = useState(false);
+  const [showConsult, setShowConsult] = useState(false);
 
   return (
     <section id="contacts" className="py-24 ocean-gradient">
       {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+      {showConsult && <ConsultModal onClose={() => setShowConsult(false)} />}
+
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <p className="font-body text-xs text-gold tracking-widest uppercase mb-3">Свяжитесь с нами</p>
@@ -278,24 +293,24 @@ export function ContactsSection() {
 
         <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
           {[
-            { icon: "Phone", title: "Телефон", value: "+7 (800) 555-00-10", sub: "Ежедневно 9:00 – 21:00" },
-            { icon: "Mail", title: "Email", value: "hello@viatek-relax.ru", sub: "Ответим в течение часа" },
-            { icon: "MapPin", title: "Адрес", value: "Набережная Волги, 5", sub: "Причал №12" },
+            { icon: "Phone", title: "Телефон", value: "+7 (927) 118-31-31", sub: "Ежедневно 9:00 – 21:00", href: "tel:+79271183131" },
+            { icon: "Mail", title: "Email", value: "viatek@bk.ru", sub: "Ответим в течение часа", href: "mailto:viatek@bk.ru" },
+            { icon: "MapPin", title: "Адрес", value: "Набережная Волги, 5", sub: "Причал №12", href: "#" },
           ].map((c) => (
-            <div key={c.title} className="glass-card rounded-2xl p-7 text-center hover-lift">
+            <a key={c.title} href={c.href} className="glass-card rounded-2xl p-7 text-center hover-lift block">
               <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mx-auto mb-4">
                 <Icon name={c.icon as any} size={22} className="text-gold" />
               </div>
               <p className="font-body text-xs tracking-wide uppercase mb-2" style={{ color: "#14556f" }}>{c.title}</p>
               <p className="font-display text-lg font-semibold mb-1" style={{ color: "#14556f" }}>{c.value}</p>
               <p className="font-body text-xs" style={{ color: "#14556f" }}>{c.sub}</p>
-            </div>
+            </a>
           ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-5 mb-14">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-5 mb-8">
           {[
-            { label: "WhatsApp", color: "#25D366", letter: "W", href: "https://wa.me/78005550010" },
+            { label: "WhatsApp", color: "#25D366", letter: "W", href: "https://wa.me/79271183131" },
             { label: "Telegram", color: "#2AABEE", letter: "T", href: "https://t.me/viatekrelax" },
             { label: "Max", color: "#FF6B35", letter: "M", href: "#" },
           ].map((m) => (
@@ -310,50 +325,14 @@ export function ContactsSection() {
           ))}
         </div>
 
-        {!sent ? (
-          <div className="max-w-md mx-auto glass-card rounded-2xl p-8">
-            <h3 className="font-display text-2xl font-semibold mb-6 text-center" style={{ color: "#14556f" }}>Быстрая связь</h3>
-            <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="space-y-4">
-              <input className="w-full font-body text-sm px-4 py-3 bg-white/10 border border-white/20 rounded-xl placeholder:text-white/40 focus:outline-none focus:border-gold transition-all"
-                style={{ color: "#14556f" }}
-                placeholder="Ваше имя" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-              <input className="w-full font-body text-sm px-4 py-3 bg-white/10 border border-white/20 rounded-xl placeholder:text-white/40 focus:outline-none focus:border-gold transition-all"
-                style={{ color: "#14556f" }}
-                placeholder="Телефон" type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} required />
-              <textarea className="w-full font-body text-sm px-4 py-3 bg-white/10 border border-white/20 rounded-xl placeholder:text-white/40 focus:outline-none focus:border-gold transition-all resize-none"
-                style={{ color: "#14556f" }}
-                placeholder="Ваш вопрос..." rows={3} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
-
-              <label className="flex items-start gap-3 cursor-pointer">
-                <div className={`mt-0.5 w-5 h-5 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all ${
-                  form.agree ? "bg-gold border-gold" : "border-white/40"
-                }`} onClick={() => setForm({ ...form, agree: !form.agree })}>
-                  {form.agree && <Icon name="Check" size={12} className="text-navy" />}
-                </div>
-                <input type="checkbox" checked={form.agree} onChange={(e) => setForm({ ...form, agree: e.target.checked })} required className="sr-only" />
-                <span className="font-body text-xs" style={{ color: "#14556f" }}>
-                  Согласен(а) с{" "}
-                  <button type="button" onClick={() => setShowPrivacy(true)} className="text-gold underline hover:text-[hsl(var(--gold-light))]">
-                    Политикой конфиденциальности
-                  </button>
-                </span>
-              </label>
-
-              <button type="submit" disabled={!form.agree}
-                className="w-full py-3 bg-gold text-navy font-body font-semibold rounded-xl hover:bg-[hsl(var(--gold-light))] transition-colors text-sm disabled:opacity-50">
-                Отправить
-              </button>
-            </form>
-          </div>
-        ) : (
-          <div className="max-w-md mx-auto glass-card rounded-2xl p-8 text-center">
-            <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-4">
-              <Icon name="Check" size={28} className="text-gold" />
-            </div>
-            <p className="font-display text-2xl font-semibold text-white mb-2">Отправлено!</p>
-            <p className="font-body text-sm text-white/60">Мы свяжемся с вами в ближайшее время.</p>
-          </div>
-        )}
+        <div className="flex justify-center mb-10">
+          <button
+            onClick={() => setShowConsult(true)}
+            className="flex items-center gap-2.5 px-8 py-3.5 bg-gold text-navy font-body font-semibold rounded-full hover:bg-[hsl(var(--gold-light))] transition-colors text-sm shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+            <Icon name="MessageCircle" size={18} />
+            Получить консультацию
+          </button>
+        </div>
       </div>
     </section>
   );
@@ -379,9 +358,10 @@ export function Footer() {
 
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { id: "fleet", label: "Флот" },
-              { id: "services", label: "Услуги" },
+              { id: "fleet", label: "Услуги" },
+              { id: "services", label: "Варианты отдыха" },
               { id: "reviews", label: "Отзывы" },
+              { id: "gallery", label: "Галерея" },
               { id: "faq", label: "FAQ" },
               { id: "contacts", label: "Контакты" },
             ].map((l) => (

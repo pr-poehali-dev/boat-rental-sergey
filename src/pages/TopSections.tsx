@@ -50,8 +50,8 @@ export function NavBar() {
             </div>
 
             <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-              <a href="tel:+78005550010" className="font-body text-sm font-medium text-navy hover:text-ocean transition-colors whitespace-nowrap">
-                +7 (800) 555-00-10
+              <a href="tel:+79271183131" className="font-body text-sm font-medium text-navy hover:text-ocean transition-colors whitespace-nowrap">
+                +7 (927) 118-31-31
               </a>
               {messengers.map((m) => (
                 <a key={m.label} href={m.href} target="_blank" rel="noopener noreferrer"
@@ -82,8 +82,8 @@ export function NavBar() {
                 </button>
               ))}
               <div className="flex items-center gap-3 pt-1">
-                <a href="tel:+78005550010" className="font-body text-sm font-medium text-navy">
-                  +7 (800) 555-00-10
+                <a href="tel:+79271183131" className="font-body text-sm font-medium text-navy">
+                  +7 (927) 118-31-31
                 </a>
                 {messengers.map((m) => (
                   <a key={m.label} href={m.href} target="_blank" rel="noopener noreferrer"
@@ -323,6 +323,10 @@ export function FleetSection() {
 
 // ─── Booking ──────────────────────────────────────────────────────────────────
 
+function validatePhone(phone: string) {
+  return phone.replace(/\D/g, "").length >= 10;
+}
+
 export function BookingSection() {
   const [form, setForm] = useState({
     name: "", phone: "",
@@ -332,10 +336,30 @@ export function BookingSection() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
+  const [phoneError, setPhoneError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const selectedYacht = FLEET.find((y) => y.name === form.yacht);
   const hourlyPrice = selectedYacht ? selectedYacht.price : 0;
   const totalPrice = hourlyPrice * parseInt(form.duration || "1");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validatePhone(form.phone)) { setPhoneError("Введите корректный номер телефона"); return; }
+    setPhoneError("");
+    setLoading(true);
+    await fetch("https://functions.poehali.dev/b5dbfd1f-fb97-41db-a28b-c1eef3de3c73", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: form.name, phone: form.phone,
+        message: `Услуга: ${form.yacht}, Дата: ${form.date}, Время: ${form.time}, Часов: ${form.duration}, Гостей: ${form.guests}`,
+        formId: "otpform",
+      }),
+    }).catch(() => null);
+    setLoading(false);
+    setSubmitted(true);
+  };
 
   const inputClass = "w-full font-body text-sm px-4 py-3 border border-border rounded-xl bg-white focus:outline-none focus:border-ocean focus:ring-1 focus:ring-ocean/30 transition-all placeholder:text-muted-foreground/60";
   const labelClass = "font-body text-xs font-medium text-navy/70 mb-1.5 block tracking-wide uppercase";
@@ -370,7 +394,7 @@ export function BookingSection() {
             </div>
           ) : (
             <div className="grid md:grid-cols-3 gap-8">
-              <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="md:col-span-2 space-y-5">
+              <form onSubmit={handleSubmit} className="md:col-span-2 space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className={labelClass}>Ваше имя</label>
@@ -378,9 +402,10 @@ export function BookingSection() {
                       onChange={(e) => setForm({ ...form, name: e.target.value })} required />
                   </div>
                   <div>
-                    <label className={labelClass}>Телефон</label>
-                    <input className={inputClass} placeholder="+7 (999) 000-00-00" type="tel" value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })} required />
+                    <label className={labelClass}>Телефон *</label>
+                    <input className={`${inputClass} ${phoneError ? "border-red-400" : ""}`} placeholder="+7 (927) 118-31-31" type="tel" value={form.phone}
+                      onChange={(e) => { setForm({ ...form, phone: e.target.value }); setPhoneError(""); }} required />
+                    {phoneError && <p className="font-body text-xs text-red-500 mt-1">{phoneError}</p>}
                   </div>
                 </div>
 
@@ -462,8 +487,8 @@ export function BookingSection() {
 
                 <button type="submit"
                   className="w-full py-4 bg-navy text-[hsl(var(--gold-light))] font-body font-semibold rounded-xl hover:bg-ocean transition-colors text-sm tracking-wide mt-2 disabled:opacity-50"
-                  disabled={!form.agree}>
-                  Отправить заявку
+                  disabled={!form.agree || loading}>
+                  {loading ? "Отправляем..." : "Отправить заявку"}
                 </button>
               </form>
 
