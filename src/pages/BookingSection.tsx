@@ -173,7 +173,7 @@ export function BookingSection() {
                 </button>
               </form>
 
-              <div className="space-y-5">
+              <div className="hidden md:block space-y-5">
                 <div className="bg-navy rounded-2xl p-6 text-white">
                   <h4 className="font-display text-xl font-semibold mb-4 text-[hsl(var(--gold-light))]">Калькулятор</h4>
                   {form.yacht ? (
@@ -211,10 +211,10 @@ export function BookingSection() {
 
                 <div className="bg-sand rounded-2xl p-5 space-y-4">
                   {[
-                    { icon: "Shield", text: "Страховка включена" },
                     { icon: "Users", text: "Профессиональный экипаж" },
                     { icon: "Clock", text: "Ответ за 30 минут" },
                     { icon: "RefreshCw", text: "Гибкая отмена" },
+                    { icon: "Anchor", text: "Собственный причал" },
                   ].map((item) => (
                     <div key={item.text} className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-ocean-pale flex items-center justify-center flex-shrink-0">

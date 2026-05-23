@@ -273,7 +273,7 @@ export function ContactsSection() {
           {[
             { icon: "Phone", title: "Телефон", value: "+7 (927) 118-31-31", sub: "Ежедневно 9:00 – 21:00", href: "tel:+79271183131" },
             { icon: "Mail", title: "Email", value: "viatek@bk.ru", sub: "Ответим в течение часа", href: "mailto:viatek@bk.ru" },
-            { icon: "MapPin", title: "Адрес", value: "Набережная Волги, 5", sub: "Причал №12", href: "#" },
+            { icon: "MapPin", title: "Адрес", value: "Лесозаводская ул.", sub: "Район турбазы Малиновка", href: "#" },
           ].map((c) => (
             <a key={c.title} href={c.href} className="glass-card rounded-2xl p-7 text-center hover-lift block">
               <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mx-auto mb-4">
@@ -330,7 +330,7 @@ export function Footer() {
               <Icon name="Anchor" size={14} className="text-white" />
             </div>
             <span className="font-display text-lg font-semibold text-white">
-              Viatek<span className="text-gold">-Relax</span>
+              Volga<span className="text-gold">-Viatek</span>
             </span>
           </div>
 
@@ -350,7 +350,7 @@ export function Footer() {
             ))}
           </div>
 
-          <p className="font-body text-xs text-white/30">© 2025 Viatek-Relax.</p>
+          <p className="font-body text-xs text-white/30">© 2026 Volga-Viatek.</p>
         </div>
 
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">

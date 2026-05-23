@@ -32,7 +32,7 @@ export function NavBar() {
                 <Icon name="Anchor" size={16} className="text-white" />
               </div>
               <span className="font-display text-xl font-semibold tracking-wide text-navy">
-                Viatek<span className="text-gold">-Relax</span>
+                Volga<span className="text-gold">-Viatek</span>
               </span>
             </button>
 

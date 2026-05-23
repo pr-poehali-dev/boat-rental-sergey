@@ -7,9 +7,9 @@ const HERO_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64f
 
 const PERKS = [
   { icon: "Anchor", text: "Собственный причал" },
-  { icon: "Shield", text: "Страховка включена" },
   { icon: "Clock", text: "Ответ за 15 минут" },
   { icon: "Star", text: "8 лет на Волге" },
+  { icon: "Users", text: "Опытные капитаны" },
 ];
 
 export function HeroSection() {
@@ -38,7 +38,8 @@ export function HeroSection() {
 
         <p className="animate-fade-up-delay-2 font-body text-lg md:text-xl text-white/80 max-w-2xl mx-auto leading-relaxed mb-4">
           Романтический закат, рыбалка с гидом, вечеринка на воде или банкет на теплоходе —
-          мы организуем любой отдых на реке <strong className="text-white font-semibold">под ключ</strong>.
+          мы организуем любой отдых на реке<br />
+          <strong className="text-white font-semibold">Под Ключ</strong>.
         </p>
 
         <p className="animate-fade-up-delay-2 font-body text-sm text-white/60 mb-10">
@@ -68,9 +69,10 @@ export function HeroSection() {
 
         <div className="animate-fade-up-delay-3 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
           {STATS.map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="font-display text-3xl md:text-4xl font-semibold text-[hsl(var(--gold-light))]">{s.value}</div>
-              <div className="font-body text-xs text-white/55 mt-1 tracking-wide">{s.label}</div>
+            <div key={s.label} className="text-center bg-black/25 backdrop-blur-sm rounded-2xl px-3 py-4 border border-white/10">
+              <div className="font-display text-3xl md:text-4xl font-semibold text-[hsl(var(--gold-light))]"
+                style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>{s.value}</div>
+              <div className="font-body text-xs text-white/80 mt-1 tracking-wide">{s.label}</div>
             </div>
           ))}
         </div>
