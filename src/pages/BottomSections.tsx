@@ -84,6 +84,47 @@ export function ReviewsSection() {
   );
 }
 
+// ─── CTA ──────────────────────────────────────────────────────────────────────
+
+export function CtaSection() {
+  const [showConsult, setShowConsult] = useState(false);
+
+  return (
+    <section className="py-20 bg-pearl">
+      {showConsult && <ConsultModal onClose={() => setShowConsult(false)} />}
+      <div className="container mx-auto px-6">
+        <div className="max-w-4xl mx-auto bg-navy rounded-3xl px-8 py-14 md:px-16 text-center relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-ocean/20 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-gold/10 rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+
+          <div className="relative z-10">
+            <p className="font-body text-xs text-gold tracking-widest uppercase mb-4">Готовы к отдыху?</p>
+            <h2 className="font-display text-3xl md:text-5xl font-light text-white mb-5 leading-tight">
+              Выберите свой отдых<br />
+              <span className="italic text-[hsl(var(--gold-light))]">на Волге сегодня</span>
+            </h2>
+            <p className="font-body text-white/65 max-w-xl mx-auto mb-10 leading-relaxed">
+              Оставьте заявку — менеджер свяжется в течение 15 минут, подберёт вариант под ваш бюджет и организует всё под ключ.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => setShowConsult(true)}
+                className="px-9 py-4 bg-gold text-navy font-body font-bold rounded-full hover:bg-[hsl(var(--gold-light))] transition-all hover:scale-105 text-sm tracking-wide shadow-lg">
+                Получить консультацию
+              </button>
+              <button
+                onClick={() => scrollTo("fleet")}
+                className="px-8 py-4 bg-white/10 text-white border border-white/25 font-body font-medium rounded-full hover:bg-white/20 transition-all text-sm tracking-wide">
+                Выбрать отдых на Волге
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Gallery ──────────────────────────────────────────────────────────────────
 
 function FullscreenSlider({ photos, startIndex, onClose }: { photos: typeof GALLERY_PHOTOS; startIndex: number; onClose: () => void }) {
@@ -102,47 +143,32 @@ function FullscreenSlider({ photos, startIndex, onClose }: { photos: typeof GALL
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[300] bg-black/96 flex items-center justify-center">
+    <div className="fixed inset-0 z-[300] flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={onClose} />
+
       <button onClick={onClose}
         className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-white/80 transition-colors shadow-lg">
         <Icon name="X" size={20} style={{ color: "#14556f" }} />
       </button>
 
-      <span className="absolute top-4 left-1/2 -translate-x-1/2 font-body text-sm text-white/60 bg-black/40 px-3 py-1 rounded-full">
-        {current + 1} / {photos.length}
-      </span>
-
       <button onClick={() => go(-1)}
-        className="absolute left-4 z-10 w-12 h-12 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center transition-colors">
-        <Icon name="ChevronLeft" size={26} className="text-white" />
+        className="absolute left-4 z-10 w-14 h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
+        <Icon name="ChevronLeft" size={28} className="text-white" />
       </button>
 
-      <div className="w-full h-full flex items-center justify-center px-20 py-16">
+      <div className="relative z-10 w-full h-full flex items-center justify-center px-24 py-12">
         <img
           src={photos[current].src}
           alt={photos[current].alt}
-          className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
-          style={{ maxHeight: "calc(100vh - 8rem)" }}
+          className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+          style={{ maxHeight: "calc(100vh - 6rem)" }}
         />
       </div>
 
       <button onClick={() => go(1)}
-        className="absolute right-4 z-10 w-12 h-12 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center transition-colors">
-        <Icon name="ChevronRight" size={26} className="text-white" />
+        className="absolute right-4 z-10 w-14 h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
+        <Icon name="ChevronRight" size={28} className="text-white" />
       </button>
-
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-        {photos.map((_, i) => (
-          <button key={i} onClick={() => setCurrent(i)}
-            className={`rounded-full transition-all duration-300 ${i === current ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/35 hover:bg-white/60"}`} />
-        ))}
-      </div>
-
-      {photos[current].alt && (
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center">
-          <p className="font-body text-sm text-white/60">{photos[current].alt}</p>
-        </div>
-      )}
     </div>
   );
 }
@@ -167,7 +193,7 @@ export function GallerySection() {
           <p className="font-body text-sm text-muted-foreground mt-3">Нажмите на любое фото, чтобы открыть просмотр</p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[200px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[220px]">
           {GALLERY_PHOTOS.map((photo, i) => (
             <div
               key={photo.id}
@@ -177,15 +203,12 @@ export function GallerySection() {
               <img
                 src={photo.src}
                 alt={photo.alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-colors duration-300 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
                 <div className="w-12 h-12 rounded-full bg-white/0 group-hover:bg-white/90 transition-all duration-300 flex items-center justify-center scale-75 group-hover:scale-100">
                   <Icon name="ZoomIn" size={20} className="text-navy opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <p className="font-body text-xs text-white">{photo.alt}</p>
               </div>
             </div>
           ))}

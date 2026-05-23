@@ -1,5 +1,5 @@
 import { NavBar, HeroSection, FleetSection, BookingSection } from "./TopSections";
-import { ServicesSection, ReviewsSection, GallerySection, FaqSection, ContactsSection, Footer } from "./BottomSections";
+import { ServicesSection, ReviewsSection, CtaSection, GallerySection, FaqSection, ContactsSection, Footer } from "./BottomSections";
 
 export default function Index() {
   return (
@@ -10,6 +10,7 @@ export default function Index() {
       <BookingSection />
       <ServicesSection />
       <ReviewsSection />
+      <CtaSection />
       <GallerySection />
       <FaqSection />
       <ContactsSection />
