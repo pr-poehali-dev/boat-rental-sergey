@@ -146,7 +146,7 @@ function FullscreenSlider({ photos, startIndex, onClose }: { photos: typeof GALL
     <div className="fixed inset-0 z-[300] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={onClose} />
 
-      <div className="w-full h-full flex items-center justify-center px-24 py-12">
+      <div className="relative z-10 w-full h-full flex items-center justify-center px-24 py-12 pointer-events-none">
         <img
           src={photos[current].src}
           alt={photos[current].alt}
