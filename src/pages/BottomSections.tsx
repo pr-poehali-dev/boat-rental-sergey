@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import {
   Accordion,
@@ -104,76 +104,54 @@ function FullscreenSlider({ photos, startIndex, onClose }: { photos: typeof GALL
   return (
     <div className="fixed inset-0 z-[300] bg-black/96 flex items-center justify-center">
       <button onClick={onClose}
-        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors">
-        <Icon name="X" size={20} className="text-white" />
+        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-white/80 transition-colors shadow-lg">
+        <Icon name="X" size={20} style={{ color: "#14556f" }} />
       </button>
 
-      <span className="absolute top-4 left-1/2 -translate-x-1/2 font-body text-sm text-white/50">
+      <span className="absolute top-4 left-1/2 -translate-x-1/2 font-body text-sm text-white/60 bg-black/40 px-3 py-1 rounded-full">
         {current + 1} / {photos.length}
       </span>
 
       <button onClick={() => go(-1)}
-        className="absolute left-4 z-10 w-12 h-12 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors">
-        <Icon name="ChevronLeft" size={24} className="text-white" />
+        className="absolute left-4 z-10 w-12 h-12 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center transition-colors">
+        <Icon name="ChevronLeft" size={26} className="text-white" />
       </button>
 
       <div className="w-full h-full flex items-center justify-center px-20 py-16">
         <img
           src={photos[current].src}
           alt={photos[current].alt}
-          className="max-w-full max-h-full object-contain rounded-xl"
+          className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
           style={{ maxHeight: "calc(100vh - 8rem)" }}
         />
       </div>
 
       <button onClick={() => go(1)}
-        className="absolute right-4 z-10 w-12 h-12 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors">
-        <Icon name="ChevronRight" size={24} className="text-white" />
+        className="absolute right-4 z-10 w-12 h-12 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center transition-colors">
+        <Icon name="ChevronRight" size={26} className="text-white" />
       </button>
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
         {photos.map((_, i) => (
           <button key={i} onClick={() => setCurrent(i)}
-            className={`rounded-full transition-all duration-300 ${i === current ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/40 hover:bg-white/70"}`} />
+            className={`rounded-full transition-all duration-300 ${i === current ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/35 hover:bg-white/60"}`} />
         ))}
       </div>
+
+      {photos[current].alt && (
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center">
+          <p className="font-body text-sm text-white/60">{photos[current].alt}</p>
+        </div>
+      )}
     </div>
   );
 }
 
 export function GallerySection() {
-  const [current, setCurrent] = useState(0);
   const [fullscreen, setFullscreen] = useState<number | null>(null);
-  const total = GALLERY_PHOTOS.length;
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const getIdx = (offset: number) => (current + offset + total) % total;
-
-  const startAutoplay = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setCurrent((c) => (c + 1) % total);
-    }, 3500);
-  };
-
-  useEffect(() => {
-    startAutoplay();
-    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, []);
-
-  const go = (dir: number) => {
-    setCurrent((c) => (c + dir + total) % total);
-    startAutoplay();
-  };
-
-  const photos = [
-    { idx: getIdx(-1), scale: "scale-90 opacity-60", zIndex: "z-0" },
-    { idx: getIdx(0),  scale: "scale-100 opacity-100", zIndex: "z-10" },
-    { idx: getIdx(1),  scale: "scale-90 opacity-60", zIndex: "z-0" },
-  ];
 
   return (
-    <section id="gallery" className="py-24 bg-white overflow-hidden">
+    <section id="gallery" className="py-24 bg-white">
       {fullscreen !== null && (
         <FullscreenSlider
           photos={GALLERY_PHOTOS}
@@ -182,58 +160,35 @@ export function GallerySection() {
         />
       )}
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <p className="font-body text-xs text-ocean tracking-widest uppercase mb-3">Наши моменты</p>
           <h2 className="font-display text-4xl md:text-5xl font-light text-navy mb-4">Галерея</h2>
           <GoldDivider />
-          <p className="font-body text-sm text-muted-foreground mt-3">Нажмите на фото, чтобы просмотреть в полном размере</p>
+          <p className="font-body text-sm text-muted-foreground mt-3">Нажмите на любое фото, чтобы открыть просмотр</p>
         </div>
 
-        <div className="relative flex items-center justify-center select-none" style={{ height: 380 }}>
-          {photos.map((p, i) => (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[200px]">
+          {GALLERY_PHOTOS.map((photo, i) => (
             <div
-              key={`${p.idx}-${i}`}
-              className={`absolute transition-all duration-500 ease-in-out rounded-2xl overflow-hidden shadow-lg ${p.scale} ${p.zIndex} cursor-pointer group`}
-              style={{ width: 300, height: 380 }}
-              onClick={() => { if (i === 1) setFullscreen(p.idx); }}
+              key={photo.id}
+              className={`relative overflow-hidden rounded-xl cursor-pointer group ${photo.span}`}
+              onClick={() => setFullscreen(i)}
             >
-              <img src={GALLERY_PHOTOS[p.idx].src} alt={GALLERY_PHOTOS[p.idx].alt} className="w-full h-full object-cover" />
-              {i === 1 && (
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors flex items-center justify-center">
-                  <div className="w-12 h-12 rounded-full bg-white/0 group-hover:bg-white/90 transition-all flex items-center justify-center">
-                    <Icon name="ZoomIn" size={20} className="text-navy opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-colors duration-300 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-white/0 group-hover:bg-white/90 transition-all duration-300 flex items-center justify-center scale-75 group-hover:scale-100">
+                  <Icon name="ZoomIn" size={20} className="text-navy opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-              )}
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <p className="font-body text-xs text-white">{photo.alt}</p>
+              </div>
             </div>
           ))}
-          <button onClick={() => go(-1)}
-            className="absolute left-2 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:bg-white shadow-md transition-colors">
-            <Icon name="ChevronLeft" size={18} className="text-navy" />
-          </button>
-          <button onClick={() => go(1)}
-            className="absolute right-2 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:bg-white shadow-md transition-colors">
-            <Icon name="ChevronRight" size={18} className="text-navy" />
-          </button>
-        </div>
-
-        <div className="flex items-center justify-center gap-6 mt-10">
-          <button onClick={() => go(-1)}
-            className="w-11 h-11 rounded-full bg-pearl border border-border flex items-center justify-center hover:bg-ocean-pale hover:border-ocean transition-all">
-            <Icon name="ChevronLeft" size={20} className="text-navy" />
-          </button>
-          <div className="flex gap-2">
-            {GALLERY_PHOTOS.map((_, i) => (
-              <button key={i} onClick={() => { setCurrent(i); startAutoplay(); }}
-                className={`rounded-full transition-all duration-300 ${
-                  i === current ? "w-6 h-2 bg-ocean" : "w-2 h-2 bg-border hover:bg-ocean/40"
-                }`} />
-            ))}
-          </div>
-          <button onClick={() => go(1)}
-            className="w-11 h-11 rounded-full bg-pearl border border-border flex items-center justify-center hover:bg-ocean-pale hover:border-ocean transition-all">
-            <Icon name="ChevronRight" size={20} className="text-navy" />
-          </button>
         </div>
       </div>
     </section>
