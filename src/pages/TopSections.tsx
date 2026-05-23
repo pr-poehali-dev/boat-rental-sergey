@@ -3,69 +3,106 @@ import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import { Badge } from "@/components/ui/badge";
 import { FLEET, STATS } from "./data";
-import { scrollTo, GoldDivider, PrivacyModal } from "./shared";
+import { scrollTo, GoldDivider, PrivacyModal, ConsultModal } from "./shared";
 
 // ─── NavBar ───────────────────────────────────────────────────────────────────
 
 export function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showConsult, setShowConsult] = useState(false);
+
   const links = [
-    { id: "fleet", label: "Флот" },
-    { id: "services", label: "Услуги" },
+    { id: "fleet", label: "Услуги" },
+    { id: "services", label: "Варианты отдыха" },
     { id: "reviews", label: "Отзывы" },
-    { id: "about", label: "О нас" },
     { id: "gallery", label: "Галерея" },
     { id: "faq", label: "FAQ" },
     { id: "contacts", label: "Контакты" },
   ];
 
+  const messengers = [
+    { label: "WhatsApp", color: "#25D366", letter: "W", href: "https://wa.me/78005550010" },
+    { label: "Telegram", color: "#2AABEE", letter: "T", href: "https://t.me/viatekrelax" },
+    { label: "Max", color: "#FF6B35", letter: "M", href: "#" },
+  ];
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
-      <div className="glass-card border-b border-white/30">
-        <div className="container mx-auto px-6 flex items-center justify-between h-16">
-          <button onClick={() => scrollTo("hero")} className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full ocean-gradient flex items-center justify-center">
-              <Icon name="Anchor" size={16} className="text-white" />
+    <>
+      {showConsult && <ConsultModal onClose={() => setShowConsult(false)} />}
+      <nav className="fixed top-0 left-0 right-0 z-50">
+        <div className="glass-card border-b border-white/30">
+          <div className="container mx-auto px-6 flex items-center justify-between h-16 gap-4">
+            <button onClick={() => scrollTo("hero")} className="flex items-center gap-2 flex-shrink-0">
+              <div className="w-8 h-8 rounded-full ocean-gradient flex items-center justify-center">
+                <Icon name="Anchor" size={16} className="text-white" />
+              </div>
+              <span className="font-display text-xl font-semibold tracking-wide text-navy">
+                Viatek<span className="text-gold">-Relax</span>
+              </span>
+            </button>
+
+            <div className="hidden lg:flex items-center gap-6">
+              {links.map((l) => (
+                <button key={l.id} onClick={() => scrollTo(l.id)} className="nav-link text-navy/70 hover:text-navy whitespace-nowrap text-sm">
+                  {l.label}
+                </button>
+              ))}
             </div>
-            <span className="font-display text-xl font-semibold tracking-wide text-navy">
-              Viatek<span className="text-gold">-Relax</span>
-            </span>
-          </button>
 
-          <div className="hidden md:flex items-center gap-8">
-            {links.map((l) => (
-              <button key={l.id} onClick={() => scrollTo(l.id)} className="nav-link text-navy/70 hover:text-navy">
-                {l.label}
+            <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+              <a href="tel:+78005550010" className="font-body text-sm font-medium text-navy hover:text-ocean transition-colors whitespace-nowrap">
+                +7 (800) 555-00-10
+              </a>
+              {messengers.map((m) => (
+                <a key={m.label} href={m.href} target="_blank" rel="noopener noreferrer"
+                  title={m.label}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-white font-body font-bold text-sm hover:scale-110 transition-transform flex-shrink-0"
+                  style={{ backgroundColor: m.color }}>
+                  {m.letter}
+                </a>
+              ))}
+              <button
+                onClick={() => setShowConsult(true)}
+                className="ml-1 px-4 py-2 bg-navy text-[hsl(var(--gold-light))] font-body text-sm font-medium rounded-full hover:bg-ocean transition-colors tracking-wide whitespace-nowrap">
+                Получить консультацию
               </button>
-            ))}
-          </div>
+            </div>
 
-          <button onClick={() => scrollTo("booking")}
-            className="hidden md:block px-5 py-2 bg-navy text-[hsl(var(--gold-light))] font-body text-sm font-medium rounded-full hover:bg-ocean transition-colors tracking-wide">
-            Забронировать
-          </button>
-
-          <button className="md:hidden p-2 text-navy" onClick={() => setMenuOpen(!menuOpen)}>
-            <Icon name={menuOpen ? "X" : "Menu"} size={22} />
-          </button>
-        </div>
-
-        {menuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur border-t border-white/30 px-6 py-4 flex flex-col gap-4">
-            {links.map((l) => (
-              <button key={l.id} onClick={() => { scrollTo(l.id); setMenuOpen(false); }}
-                className="text-left nav-link text-navy/80 hover:text-navy py-1">
-                {l.label}
-              </button>
-            ))}
-            <button onClick={() => { scrollTo("booking"); setMenuOpen(false); }}
-              className="mt-2 px-5 py-2.5 bg-navy text-[hsl(var(--gold-light))] font-body text-sm font-medium rounded-full">
-              Забронировать
+            <button className="lg:hidden p-2 text-navy" onClick={() => setMenuOpen(!menuOpen)}>
+              <Icon name={menuOpen ? "X" : "Menu"} size={22} />
             </button>
           </div>
-        )}
-      </div>
-    </nav>
+
+          {menuOpen && (
+            <div className="lg:hidden bg-white/95 backdrop-blur border-t border-white/30 px-6 py-4 flex flex-col gap-4">
+              {links.map((l) => (
+                <button key={l.id} onClick={() => { scrollTo(l.id); setMenuOpen(false); }}
+                  className="text-left nav-link text-navy/80 hover:text-navy py-1">
+                  {l.label}
+                </button>
+              ))}
+              <div className="flex items-center gap-3 pt-1">
+                <a href="tel:+78005550010" className="font-body text-sm font-medium text-navy">
+                  +7 (800) 555-00-10
+                </a>
+                {messengers.map((m) => (
+                  <a key={m.label} href={m.href} target="_blank" rel="noopener noreferrer"
+                    title={m.label}
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-white font-body font-bold text-sm"
+                    style={{ backgroundColor: m.color }}>
+                    {m.letter}
+                  </a>
+                ))}
+              </div>
+              <button onClick={() => { setShowConsult(true); setMenuOpen(false); }}
+                className="mt-1 px-5 py-2.5 bg-navy text-[hsl(var(--gold-light))] font-body text-sm font-medium rounded-full">
+                Получить консультацию
+              </button>
+            </div>
+          )}
+        </div>
+      </nav>
+    </>
   );
 }
 
@@ -104,7 +141,7 @@ export function HeroSection() {
           </button>
           <button onClick={() => scrollTo("fleet")}
             className="px-8 py-3.5 bg-white/15 text-white border border-white/40 font-body font-medium rounded-full hover:bg-white/25 transition-all duration-200 tracking-wide text-sm backdrop-blur">
-            Смотреть флот
+            Смотреть услуги
           </button>
         </div>
 
@@ -120,67 +157,160 @@ export function HeroSection() {
 
       <button onClick={() => scrollTo("fleet")}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 hover:text-white/80 transition-colors">
-        <span className="font-body text-xs tracking-widest uppercase">Листать</span>
         <Icon name="ChevronDown" size={18} className="animate-bounce" />
       </button>
     </section>
   );
 }
 
-// ─── Fleet ────────────────────────────────────────────────────────────────────
+// ─── Photo Slider Modal ───────────────────────────────────────────────────────
+
+function PhotoSliderModal({ images, startIndex, onClose }: { images: string[]; startIndex: number; onClose: () => void }) {
+  const [current, setCurrent] = useState(startIndex);
+
+  const go = (dir: number) => {
+    setCurrent((prev) => (prev + dir + images.length) % images.length);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/95">
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
+        <Icon name="X" size={20} className="text-white" />
+      </button>
+
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+        <span className="font-body text-sm text-white/60">{current + 1} / {images.length}</span>
+      </div>
+
+      <button
+        onClick={() => go(-1)}
+        className="absolute left-4 z-10 w-12 h-12 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
+        <Icon name="ChevronLeft" size={24} className="text-white" />
+      </button>
+
+      <div className="w-full h-full flex items-center justify-center px-20 py-16">
+        <img
+          src={images[current]}
+          alt={`Фото ${current + 1}`}
+          className="max-w-full max-h-full object-contain rounded-xl"
+          style={{ maxHeight: "calc(100vh - 8rem)" }}
+        />
+      </div>
+
+      <button
+        onClick={() => go(1)}
+        className="absolute right-4 z-10 w-12 h-12 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
+        <Icon name="ChevronRight" size={24} className="text-white" />
+      </button>
+
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`rounded-full transition-all duration-300 ${
+              i === current ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/40 hover:bg-white/70"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Fleet / Services ─────────────────────────────────────────────────────────
 
 export function FleetSection() {
+  const [sliderState, setSliderState] = useState<{ images: string[]; start: number } | null>(null);
+  const [showConsult, setShowConsult] = useState(false);
+
   return (
     <section id="fleet" className="py-24 bg-pearl">
+      {sliderState && (
+        <PhotoSliderModal
+          images={sliderState.images}
+          startIndex={sliderState.start}
+          onClose={() => setSliderState(null)}
+        />
+      )}
+      {showConsult && <ConsultModal onClose={() => setShowConsult(false)} />}
+
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <p className="font-body text-xs text-ocean tracking-widest uppercase mb-3">Наш флот</p>
-          <h2 className="font-display text-4xl md:text-5xl font-light text-navy mb-4">Выберите транспорт для аренды</h2>
+          <p className="font-body text-xs text-ocean tracking-widest uppercase mb-3">Наши услуги</p>
+          <h2 className="font-display text-4xl md:text-5xl font-light text-navy mb-4">Выберите услугу для аренды</h2>
           <GoldDivider />
           <p className="font-body text-muted-foreground max-w-xl mx-auto mt-4">
-            Каждое судно — произведение инженерного искусства, укомплектованное для максимального комфорта
+            Собственный причал на Волге — удобная посадка, профессиональные капитаны, полная безопасность
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {FLEET.map((yacht) => (
-            <div key={yacht.id} className="group bg-white rounded-2xl overflow-hidden hover-lift border border-white shadow-sm">
-              <div className="relative h-52 overflow-hidden">
-                <img src={yacht.image} alt={yacht.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                {yacht.badge && (
+          {FLEET.map((item) => (
+            <div key={item.id} className="group bg-white rounded-2xl overflow-hidden hover-lift border border-white shadow-sm flex flex-col">
+              <div
+                className="relative h-52 overflow-hidden cursor-pointer"
+                onClick={() => setSliderState({ images: item.images, start: 0 })}
+              >
+                <img
+                  src={item.images[0]}
+                  alt={item.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-white/0 group-hover:bg-white/90 transition-all flex items-center justify-center">
+                    <Icon name="Images" size={20} className="text-navy opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+                </div>
+                {item.badge && (
                   <Badge className="absolute top-4 left-4 bg-gold text-navy font-body text-xs font-semibold">
-                    {yacht.badge}
+                    {item.badge}
                   </Badge>
+                )}
+                {item.images.length > 1 && (
+                  <span className="absolute bottom-3 right-3 bg-black/50 text-white font-body text-xs px-2 py-0.5 rounded-full">
+                    {item.images.length} фото
+                  </span>
                 )}
               </div>
 
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-1">
                 <div className="mb-3">
-                  <p className="font-body text-xs text-ocean tracking-wide uppercase mb-1">{yacht.type}</p>
-                  <h3 className="font-display text-2xl font-semibold text-navy">{yacht.name}</h3>
+                  <h3 className="font-display text-xl font-semibold text-navy leading-tight">{item.name}</h3>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 mb-4">
-                  {yacht.features.map((f) => (
+                  {item.features.map((f) => (
                     <span key={f} className="font-body text-xs px-2.5 py-1 bg-sand rounded-full text-navy/70">{f}</span>
                   ))}
                 </div>
 
-                <p className="font-body text-sm text-navy/60 leading-relaxed mb-5">{yacht.desc}</p>
+                <p className="font-body text-sm text-navy/60 leading-relaxed mb-5 flex-1">{item.desc}</p>
 
-                <div className="flex items-end justify-between">
-                  <div>
-                    <p className="font-body text-xs text-muted-foreground">от</p>
-                    <p className="font-display text-2xl font-semibold text-navy">
-                      {yacht.price.toLocaleString("ru-RU")} ₽
-                    </p>
-                    <p className="font-body text-xs text-muted-foreground">/ час</p>
-                  </div>
-                  <button onClick={() => scrollTo("booking")}
-                    className="px-5 py-2.5 bg-navy text-[hsl(var(--gold-light))] font-body text-sm font-medium rounded-full hover:bg-ocean transition-colors">
-                    Забронировать
-                  </button>
+                <div className="flex items-end justify-between mt-auto">
+                  {item.id === 9 ? (
+                    <button
+                      onClick={() => setShowConsult(true)}
+                      className="w-full py-2.5 bg-navy text-[hsl(var(--gold-light))] font-body text-sm font-medium rounded-full hover:bg-ocean transition-colors">
+                      Получить консультацию
+                    </button>
+                  ) : (
+                    <>
+                      <div>
+                        <p className="font-body text-xs text-muted-foreground">от</p>
+                        <p className="font-display text-2xl font-semibold text-navy">
+                          {item.price.toLocaleString("ru-RU")} ₽
+                        </p>
+                        <p className="font-body text-xs text-muted-foreground">/ час</p>
+                      </div>
+                      <button onClick={() => scrollTo("booking")}
+                        className="px-5 py-2.5 bg-navy text-[hsl(var(--gold-light))] font-body text-sm font-medium rounded-full hover:bg-ocean transition-colors">
+                        Забронировать
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -255,13 +385,13 @@ export function BookingSection() {
                 </div>
 
                 <div>
-                  <label className={labelClass}>Выберите транспорт</label>
+                  <label className={labelClass}>Выберите услугу</label>
                   <select className={inputClass} value={form.yacht}
                     onChange={(e) => setForm({ ...form, yacht: e.target.value })} required>
-                    <option value="">— Выберите из флота —</option>
-                    {FLEET.map((y) => (
+                    <option value="">— Выберите из услуг —</option>
+                    {FLEET.filter((y) => y.price > 0).map((y) => (
                       <option key={y.id} value={y.name}>
-                        {y.name} — {y.type} ({y.price.toLocaleString("ru-RU")} ₽/ч)
+                        {y.name} (от {y.price.toLocaleString("ru-RU")} ₽/ч)
                       </option>
                     ))}
                   </select>
@@ -344,8 +474,8 @@ export function BookingSection() {
                     <>
                       <div className="space-y-3 mb-5">
                         <div className="flex justify-between items-center font-body text-sm">
-                          <span className="text-white/60">Транспорт</span>
-                          <span className="font-medium text-white">{form.yacht}</span>
+                          <span className="text-white/60">Услуга</span>
+                          <span className="font-medium text-white text-right text-xs leading-snug">{form.yacht}</span>
                         </div>
                         <div className="flex justify-between items-center font-body text-sm">
                           <span className="text-white/60">Цена в час</span>
@@ -368,7 +498,7 @@ export function BookingSection() {
                   ) : (
                     <div className="py-6 text-center">
                       <Icon name="Calculator" size={36} className="text-white/20 mx-auto mb-3" />
-                      <p className="font-body text-sm text-white/40">Выберите транспорт для расчёта</p>
+                      <p className="font-body text-sm text-white/40">Выберите услугу для расчёта</p>
                     </div>
                   )}
                 </div>
