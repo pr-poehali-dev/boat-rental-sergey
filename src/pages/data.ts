@@ -3,14 +3,14 @@ const MARINA_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d6
 const INTERIOR_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/files/ceceed34-44ba-4637-b64a-9157e4f22944.jpg";
 
 export const GALLERY_PHOTOS = [
-  { id: 0, src: HERO_IMG,     alt: "Прогулка на катере по Волге",  span: "col-span-2 row-span-2" },
-  { id: 1, src: MARINA_IMG,   alt: "Причал на Волге",              span: "" },
-  { id: 2, src: INTERIOR_IMG, alt: "Интерьер хаусбота",            span: "" },
-  { id: 3, src: MARINA_IMG,   alt: "Закат на реке",                span: "" },
-  { id: 4, src: INTERIOR_IMG, alt: "Баня на воде",                 span: "" },
-  { id: 5, src: HERO_IMG,     alt: "Рыбалка на Волге",             span: "" },
-  { id: 6, src: MARINA_IMG,   alt: "Пикник на острове",            span: "" },
-  { id: 7, src: INTERIOR_IMG, alt: "Корпоратив на теплоходе",      span: "col-span-2" },
+  { id: 0, src: HERO_IMG,     alt: "Отдых на воде",        span: "col-span-2 row-span-2" },
+  { id: 1, src: MARINA_IMG,   alt: "Волга",                span: "" },
+  { id: 2, src: INTERIOR_IMG, alt: "На воде",              span: "" },
+  { id: 3, src: MARINA_IMG,   alt: "Закат на реке",        span: "" },
+  { id: 4, src: INTERIOR_IMG, alt: "Отдых",                span: "" },
+  { id: 5, src: HERO_IMG,     alt: "Рыбалка",              span: "" },
+  { id: 6, src: MARINA_IMG,   alt: "Пикник на острове",    span: "" },
+  { id: 7, src: INTERIOR_IMG, alt: "Мероприятие на воде",  span: "col-span-2" },
 ];
 
 export const FLEET = [
