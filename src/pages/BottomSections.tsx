@@ -146,17 +146,7 @@ function FullscreenSlider({ photos, startIndex, onClose }: { photos: typeof GALL
     <div className="fixed inset-0 z-[300] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={onClose} />
 
-      <button onClick={onClose}
-        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-white/80 transition-colors shadow-lg">
-        <Icon name="X" size={20} style={{ color: "#14556f" }} />
-      </button>
-
-      <button onClick={() => go(-1)}
-        className="absolute left-4 z-10 w-14 h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
-        <Icon name="ChevronLeft" size={28} className="text-white" />
-      </button>
-
-      <div className="relative z-10 w-full h-full flex items-center justify-center px-24 py-12">
+      <div className="w-full h-full flex items-center justify-center px-24 py-12">
         <img
           src={photos[current].src}
           alt={photos[current].alt}
@@ -165,8 +155,18 @@ function FullscreenSlider({ photos, startIndex, onClose }: { photos: typeof GALL
         />
       </div>
 
+      <button onClick={onClose}
+        className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-white/80 transition-colors shadow-lg">
+        <Icon name="X" size={20} style={{ color: "#14556f" }} />
+      </button>
+
+      <button onClick={() => go(-1)}
+        className="absolute left-4 z-20 w-14 h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
+        <Icon name="ChevronLeft" size={28} className="text-white" />
+      </button>
+
       <button onClick={() => go(1)}
-        className="absolute right-4 z-10 w-14 h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
+        className="absolute right-4 z-20 w-14 h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
         <Icon name="ChevronRight" size={28} className="text-white" />
       </button>
     </div>
