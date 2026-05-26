@@ -27,14 +27,14 @@ export function NavBar() {
       <nav className="fixed top-0 left-0 right-0 z-50">
         <div className="glass-card border-b border-white/30">
           <div className="container mx-auto px-6 flex items-center justify-between h-16 gap-4">
-            <button onClick={() => scrollTo("hero")} className="flex items-center gap-2 flex-shrink-0">
+            <a href="https://volga-viatek.ru" className="flex items-center gap-2 flex-shrink-0">
               <div className="w-8 h-8 rounded-full ocean-gradient flex items-center justify-center">
                 <Icon name="Anchor" size={16} className="text-white" />
               </div>
               <span className="font-display text-xl font-semibold tracking-wide text-navy">
                 Volga<span className="text-gold">-Viatek</span>
               </span>
-            </button>
+            </a>
 
             <div className="hidden lg:flex items-center gap-6">
               {links.map((l) => (

@@ -1,22 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Aqua Luxe — Яхтенный чартер премиум класса</title>
-    <meta name="description" content="Аренда яхт и катеров премиум класса. Онлайн-бронирование, флот мирового уровня, незабываемые морские путешествия."/>
-    <meta name="author" content="Aqua Luxe"/>
+
+    <!-- SEO: Основные мета-теги -->
+    <title>Аренда катеров, яхт и теплоходов в Саратове | Отдых на Волге — Volga-Viatek</title>
+    <meta name="description" content="Аренда катеров, яхт, гидроциклов и теплоходов в Саратове и Энгельсе. Рыбалка, прогулки и банкеты на Волге. Баня на воде, хаусботы, пикники на острове. Свой причал, опытные капитаны. Забронируйте отдых на воде!"/>
+    <meta name="keywords" content="аренда катера Саратов, аренда яхты Саратов, прогулка на катере Саратов, рыбалка на Волге Саратов, аренда теплохода Саратов, баня на воде Саратов, отдых на Волге, аренда гидроцикла Саратов, хаусбот аренда, катер Энгельс, водные развлечения Саратов, Волга аренда лодки"/>
+    <meta name="author" content="Volga-Viatek"/>
+    <meta name="robots" content="index, follow"/>
+    <link rel="canonical" href="https://volga-viatek.ru/"/>
+
+    <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Golos+Text:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <meta property="og:title" content="Поехали!">
-    <meta property="og:description" content="Ваш личный программист, который делает сайты в 30 раз быстрее обычного.">
-    <meta property="og:image:width" content="4800">
-    <meta property="og:image:height" content="2520">
-    <meta property="og:image:alt" content="Поехали! — сервис разработки сайтов с помощью ИИ">
-    <meta property="og:image" content="https://cdn.poehali.dev/intertnal/img/og.png">
-    <meta name="twitter:image" content="https://cdn.poehali.dev/intertnal/img/og.png">
+
+    <!-- Open Graph (VK, Telegram, Facebook) -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:locale" content="ru_RU"/>
+    <meta property="og:site_name" content="Volga-Viatek — Аренда на Волге"/>
+    <meta property="og:title" content="Аренда катеров и яхт в Саратове | Отдых на Волге — Volga-Viatek"/>
+    <meta property="og:description" content="Аренда катеров, яхт, гидроциклов и теплоходов в Саратове. Рыбалка, прогулки и банкеты на воде. Свой причал, опытные капитаны. Забронируйте отдых прямо сейчас!"/>
+    <meta property="og:image" content="https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek/big_image_crop.jpg"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:image:alt" content="Аренда катеров и яхт на Волге в Саратове — Volga-Viatek"/>
+    <meta property="og:url" content="https://volga-viatek.ru/"/>
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Аренда катеров и яхт в Саратове | Volga-Viatek"/>
+    <meta name="twitter:description" content="Аренда катеров, яхт, гидроциклов и теплоходов в Саратове. Рыбалка, прогулки и банкеты на воде. Свой причал, опытные капитаны."/>
+    <meta name="twitter:image" content="https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek/big_image_crop.jpg"/>
+
+    <!-- Schema.org JSON-LD микроразметка -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Volga-Viatek",
+      "alternateName": "Аренда катеров и яхт в Саратове",
+      "description": "Аренда катеров, яхт, гидроциклов, теплоходов, хаусботов и бани на воде в Саратове и Энгельсе. Профессиональные капитаны, свой причал, полная организация отдыха на Волге. Рыбалка с гидами, пикники на острове, свадьбы и корпоративы на воде.",
+      "url": "https://volga-viatek.ru/",
+      "logo": "https://volga-viatek.ru/favicon.svg",
+      "image": "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek/big_image_crop.jpg",
+      "priceRange": "₽₽",
+      "telephone": "+79271183131",
+      "email": "viatek@bk.ru",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Лесозаводская ул. (район турбазы Малиновка)",
+        "addressLocality": "Саратов",
+        "addressRegion": "Саратовская область",
+        "addressCountry": "RU"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "51.5333",
+        "longitude": "46.0333"
+      },
+      "areaServed": [
+        {"@type": "City", "name": "Саратов"},
+        {"@type": "City", "name": "Энгельс"},
+        {"@type": "AdministrativeArea", "name": "Саратовская область"}
+      ],
+      "openingHours": "Mo-Su 09:00-21:00",
+      "sameAs": ["https://t.me/ViatekVlad"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Водные развлечения и аренда на Волге",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Аренда гидроциклов в Саратове", "areaServed": "Саратов"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Аренда катеров в Саратове", "areaServed": "Саратов"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Аренда катера без капитана Саратов"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Аренда теплоходов и моторных яхт Саратов"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Аренда хаусботов на Волге"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Баня на воде Саратов"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Рыбалка с гидами на Волге Саратов"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Водные прогулки и пикники на острове Саратов"}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Организация мероприятий на воде Саратов"}}
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "1500"
+      }
+    }
+    </script>
 
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS COMMENT! -->
 

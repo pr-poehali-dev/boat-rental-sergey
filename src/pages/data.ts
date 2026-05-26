@@ -44,14 +44,14 @@ const ZHENEVA2      = `${CDN}/zheneva2.jpg`;
 const ZHENEVA4      = `${CDN}/zheneva4.jpg`;
 
 export const GALLERY_PHOTOS = [
-  { id: 0, src: BIG_IMAGE,     alt: "Закат на Волге",       span: "col-span-2 row-span-2" },
-  { id: 1, src: KASATKA1,      alt: "Яхта на Волге",        span: "" },
-  { id: 2, src: KATER,         alt: "Катер на Волге",       span: "" },
-  { id: 3, src: ZHENEVA1,      alt: "Хаусбот Женева",       span: "" },
-  { id: 4, src: BANYA_NEW1,    alt: "Баня на понтоне",      span: "" },
-  { id: 5, src: RYBALKA,       alt: "Рыбалка на Волге",     span: "" },
-  { id: 6, src: PIKNIK,        alt: "Пикник на острове",    span: "" },
-  { id: 7, src: EVENT,         alt: "Мероприятие на воде",  span: "col-span-2" },
+  { id: 0, src: BIG_IMAGE,     alt: "Закат на Волге в Саратове — отдых на воде",                        span: "col-span-2 row-span-2" },
+  { id: 1, src: KASATKA1,      alt: "Аренда яхты в Саратове — моторная яхта на Волге",                  span: "" },
+  { id: 2, src: KATER,         alt: "Аренда катера в Саратове у причала на Волге",                      span: "" },
+  { id: 3, src: ZHENEVA1,      alt: "Аренда хаусбота на Волге Саратов — плавучий дом отдыха",           span: "" },
+  { id: 4, src: BANYA_NEW1,    alt: "Баня на воде Саратов — ВИП баня на понтоне на Волге",              span: "" },
+  { id: 5, src: RYBALKA,       alt: "Рыбалка на Волге Саратов — гид с уловом на катере",                span: "" },
+  { id: 6, src: PIKNIK,        alt: "Пикник на острове Волга Саратов — шатёр и мангал на берегу",       span: "" },
+  { id: 7, src: EVENT,         alt: "Организация мероприятий на воде Саратов — праздник на теплоходе",  span: "col-span-2" },
 ];
 
 export const FLEET = [
