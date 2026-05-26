@@ -12,6 +12,7 @@ const HERO_SLIDES = [
   { src: `${CDN}/banya_new1.jpg`,     label: "Баня на понтоне" },
   { src: `${CDN}/fleet1.jpg`,         label: "Красивый катер" },
   { src: NEW_PHOTO,                   label: "Баня и апартаменты на воде" },
+  { src: `${CDN}/gidro.jpg`,          label: "Гидроциклы" },
 ];
 
 const PERKS = [
