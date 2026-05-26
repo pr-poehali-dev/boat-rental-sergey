@@ -1,7 +1,9 @@
 import json
 import os
+import io
 import boto3
 import requests
+from PIL import Image
 
 YADISK_PUBLIC_KEY = "https://disk.yandex.ru/d/sgSAzR5UWA7fLw"
 YADISK_API = "https://cloud-api.yandex.net/v1/disk/public/resources/download"
@@ -32,7 +34,7 @@ def handler(event: dict, context) -> dict:
         }
 
     body = json.loads(event.get("body") or "{}")
-    # photos: [{"filename": "IMG_0303.jpg", "key": "viatek/hero.jpg"}]
+    # photos: [{"filename": "IMG.jpg", "key": "viatek/img.jpg", "crop_bottom": 0.08}]
     photos = body.get("photos", [])
 
     if not photos:
@@ -70,10 +72,25 @@ def handler(event: dict, context) -> dict:
         elif filename.lower().endswith(".webp"):
             content_type = "image/webp"
 
+        crop_bottom = photo.get("crop_bottom", 0)
+        crop_right = photo.get("crop_right", 0)
+        image_data = resp.content
+
+        if crop_bottom or crop_right:
+            img = Image.open(io.BytesIO(resp.content))
+            w, h = img.size
+            new_h = int(h * (1 - crop_bottom)) if crop_bottom else h
+            new_w = int(w * (1 - crop_right)) if crop_right else w
+            img = img.crop((0, 0, new_w, new_h))
+            buf = io.BytesIO()
+            fmt = "PNG" if content_type == "image/png" else "JPEG"
+            img.save(buf, format=fmt, quality=92)
+            image_data = buf.getvalue()
+
         s3.put_object(
             Bucket="files",
             Key=key,
-            Body=resp.content,
+            Body=image_data,
             ContentType=content_type,
         )
 

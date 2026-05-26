@@ -146,28 +146,28 @@ function FullscreenSlider({ photos, startIndex, onClose }: { photos: typeof GALL
     <div className="fixed inset-0 z-[300] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/90 backdrop-blur-md" onClick={onClose} />
 
-      <div className="relative z-10 w-full h-full flex items-center justify-center px-24 py-12 pointer-events-none">
+      <div className="relative z-10 w-full h-full flex items-center justify-center px-10 md:px-24 py-12 pointer-events-none">
         <img
           src={photos[current].src}
           alt={photos[current].alt}
-          className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
-          style={{ maxHeight: "calc(100vh - 6rem)" }}
+          className="w-full h-full object-contain md:rounded-2xl shadow-2xl"
+          style={{ maxHeight: "calc(100vh - 5rem)" }}
         />
       </div>
 
       <button onClick={onClose}
-        className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-white/80 transition-colors shadow-lg">
-        <Icon name="X" size={20} style={{ color: "#14556f" }} />
+        className="absolute top-3 right-3 z-20 w-9 h-9 md:w-10 md:h-10 rounded-full bg-white flex items-center justify-center hover:bg-white/80 transition-colors shadow-lg">
+        <Icon name="X" size={18} style={{ color: "#14556f" }} />
       </button>
 
       <button onClick={() => go(-1)}
-        className="absolute left-4 z-20 w-14 h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
-        <Icon name="ChevronLeft" size={28} className="text-white" />
+        className="absolute left-2 md:left-4 z-20 w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
+        <Icon name="ChevronLeft" size={22} className="text-white" />
       </button>
 
       <button onClick={() => go(1)}
-        className="absolute right-4 z-20 w-14 h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
-        <Icon name="ChevronRight" size={28} className="text-white" />
+        className="absolute right-2 md:right-4 z-20 w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/20 hover:bg-white/35 flex items-center justify-center transition-colors border border-white/30">
+        <Icon name="ChevronRight" size={22} className="text-white" />
       </button>
     </div>
   );
@@ -289,8 +289,8 @@ export function ContactsSection() {
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-5 mb-8">
           {[
             { label: "WhatsApp", color: "#25D366", letter: "W", href: "https://wa.me/79271183131" },
-            { label: "Telegram", color: "#2AABEE", letter: "T", href: "https://t.me/viatekrelax" },
-            { label: "Max", color: "#FF6B35", letter: "M", href: "#" },
+            { label: "Telegram", color: "#2AABEE", letter: "T", href: "https://t.me/ViatekVlad" },
+            { label: "Max", color: "#FF6B35", letter: "M", href: "https://t.me/ViatekVlad" },
           ].map((m) => (
             <a key={m.label} href={m.href} target="_blank" rel="noopener noreferrer"
               className="w-full sm:w-auto flex items-center gap-2.5 px-5 py-2.5 bg-white/15 hover:bg-white/25 backdrop-blur rounded-full transition-all group justify-center">

@@ -25,22 +25,22 @@ function PhotoSliderModal({ images, startIndex, onClose }: { images: string[]; s
 
       <button
         onClick={() => go(-1)}
-        className="absolute left-4 z-10 w-12 h-12 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
+        className="absolute left-2 md:left-4 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
         <Icon name="ChevronLeft" size={24} className="text-white" />
       </button>
 
-      <div className="w-full h-full flex items-center justify-center px-20 py-16">
+      <div className="w-full h-full flex items-center justify-center px-12 md:px-20 py-12 md:py-16">
         <img
           src={images[current]}
           alt={`Фото ${current + 1}`}
-          className="max-w-full max-h-full object-contain rounded-xl"
-          style={{ maxHeight: "calc(100vh - 8rem)" }}
+          className="w-full h-full object-contain rounded-xl md:rounded-xl"
+          style={{ maxHeight: "calc(100vh - 6rem)" }}
         />
       </div>
 
       <button
         onClick={() => go(1)}
-        className="absolute right-4 z-10 w-12 h-12 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
+        className="absolute right-2 md:right-4 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/15 flex items-center justify-center hover:bg-white/25 transition-colors">
         <Icon name="ChevronRight" size={24} className="text-white" />
       </button>
 

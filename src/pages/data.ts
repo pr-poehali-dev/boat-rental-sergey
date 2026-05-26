@@ -1,7 +1,12 @@
 const CDN = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek";
 
-const HERO_IMG      = `${CDN}/hero.webp`;
-const BIG_IMAGE     = `${CDN}/big_image.jpg`;
+const HERO_IMG      = `${CDN}/hero_crop.webp`;
+const BIG_IMAGE     = `${CDN}/big_image_crop.jpg`;
+// Баня новые фото
+const BANYA_NEW1    = `${CDN}/banya_new1.jpg`;
+const BANYA_NEW2    = `${CDN}/banya_new2.jpg`;
+const BANYA_NEW3    = `${CDN}/banya_new3.jpg`;
+const BANYA_NEW4    = `${CDN}/banya_new4.jpg`;
 const FLEET1        = `${CDN}/fleet1.jpg`;
 const FLEET2        = `${CDN}/fleet2.jpg`;
 const FLEET3        = `${CDN}/fleet3.jpg`;
@@ -43,7 +48,7 @@ export const GALLERY_PHOTOS = [
   { id: 1, src: KASATKA1,      alt: "Яхта на Волге",        span: "" },
   { id: 2, src: KATER,         alt: "Катер на Волге",       span: "" },
   { id: 3, src: ZHENEVA1,      alt: "Хаусбот Женева",       span: "" },
-  { id: 4, src: BANYA,         alt: "Баня на понтоне",      span: "" },
+  { id: 4, src: BANYA_NEW1,    alt: "Баня на понтоне",      span: "" },
   { id: 5, src: RYBALKA,       alt: "Рыбалка на Волге",     span: "" },
   { id: 6, src: PIKNIK,        alt: "Пикник на острове",    span: "" },
   { id: 7, src: EVENT,         alt: "Мероприятие на воде",  span: "col-span-2" },
@@ -107,7 +112,7 @@ export const FLEET = [
     price: 15000,
     features: ["Русская баня", "ВИП-апартаменты", "Купель у Волги", "Веники в наличии"],
     desc: "Настоящая русская баня прямо на воде с выходом в Волгу. Роскошные ВИП-апартаменты для отдыха после парилки, свежий речной воздух и полное уединение.",
-    images: [BANYA, GALLERY6, GALLERY7, GALLERY8, FLEET1, FLEET2],
+    images: [BANYA_NEW1, BANYA_NEW2, BANYA_NEW3, BANYA_NEW4, GALLERY6, FLEET1],
     badge: "Эксклюзив",
   },
   {

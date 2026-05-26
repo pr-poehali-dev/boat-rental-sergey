@@ -6,10 +6,10 @@ import { scrollTo, ConsultModal } from "./shared";
 const CDN = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek";
 
 const HERO_SLIDES = [
-  { src: `${CDN}/big_image.jpg`,  label: "Закат на Волге" },
-  { src: `${CDN}/banya.jpg`,      label: "Баня на понтоне" },
-  { src: `${CDN}/fleet1.jpg`,     label: "Красивый катер" },
-  { src: `${CDN}/gidro.jpg`,      label: "Гидроциклы" },
+  { src: `${CDN}/big_image_crop.jpg`, label: "Закат на Волге" },
+  { src: `${CDN}/banya_new1.jpg`,     label: "Баня на понтоне" },
+  { src: `${CDN}/fleet1.jpg`,         label: "Красивый катер" },
+  { src: `${CDN}/gidro.jpg`,          label: "Гидроциклы" },
 ];
 
 const PERKS = [
