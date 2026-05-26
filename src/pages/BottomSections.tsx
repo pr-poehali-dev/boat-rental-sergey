@@ -321,45 +321,147 @@ export function ContactsSection() {
 export function Footer() {
   const [showPrivacy, setShowPrivacy] = useState(false);
   return (
-    <footer className="bg-navy py-12">
+    <footer className="bg-navy py-14" itemScope itemType="https://schema.org/LocalBusiness">
       {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
+      <meta itemProp="name" content="Volga-Viatek" />
+      <meta itemProp="telephone" content="+79271183131" />
+      <meta itemProp="url" content="https://volga-viatek.ru" />
       <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-ocean flex items-center justify-center">
-              <Icon name="Anchor" size={14} className="text-white" />
+
+        {/* Верхняя часть: лого + три колонки */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+
+          {/* Лого и описание */}
+          <div className="md:col-span-1 flex flex-col gap-4">
+            <a href="https://volga-viatek.ru" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <div className="w-7 h-7 rounded-full bg-ocean flex items-center justify-center">
+                <Icon name="Anchor" size={14} className="text-white" />
+              </div>
+              <span className="font-display text-lg font-semibold text-white">
+                Volga<span className="text-gold">-Viatek</span>
+              </span>
+            </a>
+            <p className="font-body text-xs text-white/50 leading-relaxed">
+              Аренда катеров, яхт и теплоходов в Саратове и Энгельсе. Отдых на Волге с 2017 года.
+            </p>
+            <div className="flex items-center gap-2 mt-1">
+              {[
+                { letter: "W", color: "#25D366", href: "https://wa.me/79271183131", label: "WhatsApp" },
+                { letter: "T", color: "#2AABEE", href: "https://t.me/ViatekVlad", label: "Telegram" },
+              ].map((m) => (
+                <a key={m.label} href={m.href} target="_blank" rel="noopener noreferrer" title={m.label}
+                  className="w-7 h-7 rounded-full flex items-center justify-center text-white font-body font-bold text-xs hover:scale-110 transition-transform"
+                  style={{ backgroundColor: m.color }}>
+                  {m.letter}
+                </a>
+              ))}
             </div>
-            <span className="font-display text-lg font-semibold text-white">
-              Volga<span className="text-gold">-Viatek</span>
-            </span>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-6">
-            {[
-              { id: "fleet", label: "Услуги" },
-              { id: "services", label: "Варианты отдыха" },
-              { id: "reviews", label: "Отзывы" },
-              { id: "gallery", label: "Галерея" },
-              { id: "faq", label: "FAQ" },
-              { id: "contacts", label: "Контакты" },
-            ].map((l) => (
-              <button key={l.id} onClick={() => scrollTo(l.id)}
-                className="font-body text-xs text-white/40 hover:text-white/80 transition-colors tracking-wide uppercase">
-                {l.label}
-              </button>
-            ))}
+          {/* Услуги */}
+          <div className="md:col-span-1">
+            <p className="font-body text-xs text-white/30 tracking-widest uppercase mb-4">Услуги</p>
+            <nav aria-label="Услуги аренды на воде">
+              <ul className="flex flex-col gap-2">
+                {[
+                  "Аренда гидроциклов",
+                  "Аренда катеров",
+                  "Катер без капитана",
+                  "Теплоходы и яхты",
+                  "Хаусботы",
+                  "Баня на воде",
+                  "Рыбалка с гидами",
+                  "Пикники на острове",
+                ].map((s) => (
+                  <li key={s}>
+                    <button onClick={() => scrollTo("fleet")}
+                      className="font-body text-xs text-white/50 hover:text-white/90 transition-colors text-left">
+                      {s}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
-          <p className="font-body text-xs text-white/30">© 2026 Volga-Viatek.</p>
+          {/* Навигация */}
+          <div className="md:col-span-1">
+            <p className="font-body text-xs text-white/30 tracking-widest uppercase mb-4">Разделы</p>
+            <nav aria-label="Разделы сайта">
+              <ul className="flex flex-col gap-2">
+                {[
+                  { id: "fleet", label: "Услуги и цены" },
+                  { id: "services", label: "Варианты отдыха" },
+                  { id: "reviews", label: "Отзывы клиентов" },
+                  { id: "gallery", label: "Галерея фото" },
+                  { id: "faq", label: "Вопросы и ответы" },
+                  { id: "contacts", label: "Контакты" },
+                ].map((l) => (
+                  <li key={l.id}>
+                    <button onClick={() => scrollTo(l.id)}
+                      className="font-body text-xs text-white/50 hover:text-white/90 transition-colors text-left">
+                      {l.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+          {/* Контакты */}
+          <div className="md:col-span-1">
+            <p className="font-body text-xs text-white/30 tracking-widest uppercase mb-4">Контакты</p>
+            <ul className="flex flex-col gap-3">
+              <li>
+                <a href="tel:+79271183131" itemProp="telephone"
+                  className="flex items-center gap-2 font-body text-sm text-white/80 hover:text-white transition-colors">
+                  <Icon name="Phone" size={13} className="text-gold flex-shrink-0" />
+                  +7 (927) 118-31-31
+                </a>
+              </li>
+              <li>
+                <a href="mailto:viatek@bk.ru" itemProp="email"
+                  className="flex items-center gap-2 font-body text-xs text-white/60 hover:text-white transition-colors">
+                  <Icon name="Mail" size={13} className="text-gold flex-shrink-0" />
+                  viatek@bk.ru
+                </a>
+              </li>
+              <li itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                <span className="flex items-start gap-2 font-body text-xs text-white/50 leading-relaxed">
+                  <Icon name="MapPin" size={13} className="text-gold flex-shrink-0 mt-0.5" />
+                  <span>
+                    <span itemProp="addressLocality">Саратов</span>,{" "}
+                    <span itemProp="streetAddress">ул. Лесозаводская</span><br />
+                    <span className="text-white/35">р-н турбазы Малиновка</span><br />
+                    <span className="text-white/35" itemProp="addressRegion">Саратовская область</span>
+                  </span>
+                </span>
+              </li>
+              <li>
+                <span className="flex items-center gap-2 font-body text-xs text-white/50">
+                  <Icon name="Clock" size={13} className="text-gold flex-shrink-0" />
+                  Ежедневно 9:00 – 21:00
+                </span>
+              </li>
+              <li>
+                <a href="https://volga-viatek.ru" itemProp="url"
+                  className="flex items-center gap-2 font-body text-xs text-white/50 hover:text-white transition-colors">
+                  <Icon name="Globe" size={13} className="text-gold flex-shrink-0" />
+                  volga-viatek.ru
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
+        {/* Нижняя строка */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <button onClick={() => setShowPrivacy(true)}
             className="font-body text-xs text-white/40 hover:text-white/70 underline transition-colors">
             Политика конфиденциальности
           </button>
-          <p className="font-body text-xs text-white/20">
-            Все права защищены. Использование материалов сайта без разрешения запрещено.
+          <p className="font-body text-xs text-white/25 text-center">
+            © 2026 Volga-Viatek. Аренда катеров и яхт в Саратове — все права защищены.
           </p>
         </div>
       </div>
