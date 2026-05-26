@@ -16,10 +16,10 @@ function ScrollToTop() {
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Наверх"
-      className={`fixed bottom-6 right-6 z-40 flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-navy/20 bg-white/80 backdrop-blur text-navy/70 hover:text-navy hover:bg-white hover:border-navy/40 transition-all duration-300 shadow-sm text-xs font-body ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+      className={`fixed top-20 right-5 z-40 w-11 h-11 rounded-full bg-[hsl(var(--navy))] border border-[hsl(var(--gold-light))]/40 shadow-lg flex flex-col items-center justify-center gap-0 transition-all duration-300 hover:bg-[hsl(var(--ocean))] hover:border-[hsl(var(--gold-light))]/80 hover:scale-110 group ${visible ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}`}
     >
-      <Icon name="ChevronUp" size={14} />
-      <span>Наверх</span>
+      <Icon name="ChevronUp" size={11} className="text-[hsl(var(--gold-light))] -mb-1" />
+      <Icon name="Anchor" size={16} className="text-[hsl(var(--gold-light))] rotate-180 group-hover:rotate-[185deg] transition-transform duration-300" />
     </button>
   );
 }
