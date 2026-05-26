@@ -265,7 +265,7 @@ export function ContactsSection() {
           <h2 className="font-display text-4xl md:text-5xl font-light text-white mb-4">Мы на связи</h2>
           <div className="gold-divider mx-auto my-4" />
           <p className="font-body text-white/70 max-w-lg mx-auto">
-            Готовы ответить на любые вопросы и помочь с подбором транспорта для незабываемого отдыха на <span className="text-[hsl(var(--gold-light))] font-medium">Волге</span>.
+            Готовы ответить на любые вопросы и помочь с подбором транспорта для незабываемого отдыха <span className="text-[hsl(var(--gold-light))] font-medium">на Волге.</span>
           </p>
         </div>
 
