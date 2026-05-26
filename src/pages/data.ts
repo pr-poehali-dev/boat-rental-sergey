@@ -137,7 +137,7 @@ export const FLEET = [
     price: 0,
     features: ["Свадьбы", "Корпоративы", "Дни рождения", "Фотосессии"],
     desc: "Полная организация любых мероприятий на воде: свадьбы, корпоративы, юбилеи, романтические вечера и фотосессии. Берём на себя всё — от аренды до декора и кейтеринга.",
-    images: [ROMANTIC, EVENT, TEPLOHOD, GALLERY9, SARATOV_NIGHT, FLEET7, GALLERY4],
+    images: [ROMANTIC, EVENT, KASATKA1, GALLERY9, SARATOV_NIGHT, FLEET7, GALLERY4],
     badge: "Под ключ",
   },
 ];
