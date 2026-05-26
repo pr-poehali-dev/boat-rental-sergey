@@ -1,41 +1,49 @@
 const CDN = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek";
 
-const HERO_IMG     = `${CDN}/hero.webp`;
-const FLEET1       = `${CDN}/fleet1.jpg`;
-const FLEET2       = `${CDN}/fleet2.jpg`;
-const FLEET3       = `${CDN}/fleet3.jpg`;
-const FLEET4       = `${CDN}/fleet4.jpg`;
-const FLEET5       = `${CDN}/fleet5.jpg`;
-const FLEET6       = `${CDN}/fleet6.jpg`;
-const FLEET7       = `${CDN}/fleet7.jpg`;
-const GIDRO        = `${CDN}/gidro.jpg`;
-const KATER        = `${CDN}/kater.jpg`;
-const TEPLOHOD     = `${CDN}/teplohod.jpg`;
-const HAUSBOT1     = `${CDN}/hausbot1.jpg`;
-const HAUSBOT2     = `${CDN}/hausbot2.jpg`;
-const HAUSBOT3     = `${CDN}/hausbot3.jpg`;
-const BANYA        = `${CDN}/banya.jpg`;
-const RYBALKA      = `${CDN}/rybalka.jpg`;
-const PIKNIK       = `${CDN}/piknik.jpg`;
-const EVENT        = `${CDN}/event.jpg`;
-const ROMANTIC     = `${CDN}/romantic.jpg`;
+const HERO_IMG      = `${CDN}/hero.webp`;
+const BIG_IMAGE     = `${CDN}/big_image.jpg`;
+const FLEET1        = `${CDN}/fleet1.jpg`;
+const FLEET2        = `${CDN}/fleet2.jpg`;
+const FLEET3        = `${CDN}/fleet3.jpg`;
+const FLEET4        = `${CDN}/fleet4.jpg`;
+const FLEET5        = `${CDN}/fleet5.jpg`;
+const FLEET6        = `${CDN}/fleet6.jpg`;
+const FLEET7        = `${CDN}/fleet7.jpg`;
+const GIDRO         = `${CDN}/gidro.jpg`;
+const KATER         = `${CDN}/kater.jpg`;
+const BANYA         = `${CDN}/banya.jpg`;
+const RYBALKA       = `${CDN}/rybalka.jpg`;
+const PIKNIK        = `${CDN}/piknik.jpg`;
+const EVENT         = `${CDN}/event.jpg`;
+const ROMANTIC      = `${CDN}/romantic.jpg`;
 const SARATOV_NIGHT = `${CDN}/saratov_night.jpg`;
-const GALLERY1     = `${CDN}/gallery1.jpg`;
-const GALLERY2     = `${CDN}/gallery2.jpg`;
-const GALLERY3     = `${CDN}/gallery3.jpg`;
-const GALLERY4     = `${CDN}/gallery4.jpg`;
-const GALLERY5     = `${CDN}/gallery5.jpg`;
-const GALLERY6     = `${CDN}/gallery6.jpg`;
-const GALLERY7     = `${CDN}/gallery7.jpg`;
-const GALLERY8     = `${CDN}/gallery8.jpg`;
-const GALLERY9     = `${CDN}/gallery9.jpg`;
+const GALLERY1      = `${CDN}/gallery1.jpg`;
+const GALLERY2      = `${CDN}/gallery2.jpg`;
+const GALLERY3      = `${CDN}/gallery3.jpg`;
+const GALLERY4      = `${CDN}/gallery4.jpg`;
+const GALLERY5      = `${CDN}/gallery5.jpg`;
+const GALLERY6      = `${CDN}/gallery6.jpg`;
+const GALLERY7      = `${CDN}/gallery7.jpg`;
+const GALLERY8      = `${CDN}/gallery8.jpg`;
+const GALLERY9      = `${CDN}/gallery9.jpg`;
+// Теплоход — яхта Касатка
+const KASATKA1      = `${CDN}/kasatka1.jpg`;
+const KASATKA2      = `${CDN}/kasatka2.jpg`;
+const KASATKA10     = `${CDN}/kasatka10.jpg`;
+const KASATKA15     = `${CDN}/kasatka15.jpg`;
+const KASATKA18     = `${CDN}/kasatka18.jpg`;
+const KASATKA19     = `${CDN}/kasatka19.jpg`;
+// Хаусбот — яхта Женева
+const ZHENEVA1      = `${CDN}/zheneva1.jpg`;
+const ZHENEVA2      = `${CDN}/zheneva2.jpg`;
+const ZHENEVA4      = `${CDN}/zheneva4.jpg`;
 
 export const GALLERY_PHOTOS = [
-  { id: 0, src: HERO_IMG,      alt: "Отдых на воде",        span: "col-span-2 row-span-2" },
-  { id: 1, src: FLEET1,        alt: "Волга",                span: "" },
+  { id: 0, src: BIG_IMAGE,     alt: "Закат на Волге",       span: "col-span-2 row-span-2" },
+  { id: 1, src: KASATKA1,      alt: "Яхта на Волге",        span: "" },
   { id: 2, src: KATER,         alt: "Катер на Волге",       span: "" },
-  { id: 3, src: GALLERY2,      alt: "Закат на реке",        span: "" },
-  { id: 4, src: GALLERY3,      alt: "Отдых на воде",        span: "" },
+  { id: 3, src: ZHENEVA1,      alt: "Хаусбот Женева",       span: "" },
+  { id: 4, src: BANYA,         alt: "Баня на понтоне",      span: "" },
   { id: 5, src: RYBALKA,       alt: "Рыбалка на Волге",     span: "" },
   { id: 6, src: PIKNIK,        alt: "Пикник на острове",    span: "" },
   { id: 7, src: EVENT,         alt: "Мероприятие на воде",  span: "col-span-2" },
@@ -79,7 +87,7 @@ export const FLEET = [
     price: 35000,
     features: ["До 80 человек", "Банкетный зал", "Кухня на борту", "Звуковое оборудование"],
     desc: "Просторные теплоходы и моторные яхты для банкетов, корпоративов и праздников на воде. Профессиональный экипаж, ресторанное меню, DJ-оборудование.",
-    images: [TEPLOHOD, EVENT, SARATOV_NIGHT, FLEET1, FLEET7, GALLERY4, GALLERY5],
+    images: [KASATKA1, KASATKA2, KASATKA10, KASATKA15, KASATKA18, KASATKA19, EVENT],
     badge: "VIP",
   },
   {
@@ -89,7 +97,7 @@ export const FLEET = [
     price: 25000,
     features: ["До 8 человек", "Спальные каюты", "Полная кухня", "Терраса"],
     desc: "Плавучий дом на Волге — полноценный отдых у воды без отеля. Спальные каюты, оборудованная кухня, открытая терраса. Стоянка у нашего причала или выход в акваторию.",
-    images: [HAUSBOT1, HAUSBOT2, HAUSBOT3, FLEET4, FLEET5],
+    images: [ZHENEVA1, ZHENEVA2, ZHENEVA4, FLEET4, FLEET5],
     badge: null,
   },
   {

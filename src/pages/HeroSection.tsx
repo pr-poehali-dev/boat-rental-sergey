@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 import { STATS } from "./data";
 import { scrollTo, ConsultModal } from "./shared";
 
-const HERO_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek/hero.webp";
+const CDN = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek";
+
+const HERO_SLIDES = [
+  { src: `${CDN}/big_image.jpg`,  label: "Закат на Волге" },
+  { src: `${CDN}/banya.jpg`,      label: "Баня на понтоне" },
+  { src: `${CDN}/fleet1.jpg`,     label: "Красивый катер" },
+  { src: `${CDN}/gidro.jpg`,      label: "Гидроциклы" },
+];
 
 const PERKS = [
   { icon: "Anchor", text: "Собственный причал" },
@@ -14,12 +21,34 @@ const PERKS = [
 
 export function HeroSection() {
   const [showConsult, setShowConsult] = useState(false);
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setSlide((s) => (s + 1) % HERO_SLIDES.length), 5000);
+    return () => clearInterval(t);
+  }, []);
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {showConsult && <ConsultModal onClose={() => setShowConsult(false)} />}
 
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${HERO_IMG})` }} />
+      {HERO_SLIDES.map((sl, i) => (
+        <div
+          key={sl.src}
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
+          style={{ backgroundImage: `url(${sl.src})`, opacity: i === slide ? 1 : 0 }}
+        />
+      ))}
+
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {HERO_SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setSlide(i)}
+            className={`rounded-full transition-all duration-300 ${i === slide ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/40 hover:bg-white/70"}`}
+          />
+        ))}
+      </div>
       <div className="absolute inset-0 hero-overlay" />
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[hsl(var(--pearl))] to-transparent" />
 
