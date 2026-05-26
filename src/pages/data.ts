@@ -112,7 +112,7 @@ export const FLEET = [
     price: 15000,
     features: ["Русская баня", "ВИП-апартаменты", "Купель у Волги", "Веники в наличии"],
     desc: "Настоящая русская баня прямо на воде с выходом в Волгу. Роскошные ВИП-апартаменты для отдыха после парилки, свежий речной воздух и полное уединение.",
-    images: [BANYA_NEW1, BANYA_NEW2, BANYA_NEW3, BANYA_NEW4, GALLERY6, FLEET1],
+    images: ["https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/0473f186-002f-4be0-a2fa-a8d7ad13ba9d.jpg", BANYA_NEW1, BANYA_NEW2, BANYA_NEW3, BANYA_NEW4, GALLERY6, FLEET1],
     badge: "Эксклюзив",
   },
   {
