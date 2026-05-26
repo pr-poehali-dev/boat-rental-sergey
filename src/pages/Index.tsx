@@ -16,7 +16,7 @@ function ScrollToTop() {
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Наверх"
-      className={`fixed top-20 left-5 z-40 w-11 h-11 rounded-full bg-[hsl(var(--navy))] border border-[hsl(var(--gold-light))]/40 shadow-lg flex flex-col items-center justify-center gap-0 transition-all duration-300 hover:bg-[hsl(var(--ocean))] hover:border-[hsl(var(--gold-light))]/80 hover:scale-110 group ${visible ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}`}
+      className={`fixed top-20 left-5 z-40 w-11 h-11 rounded-full bg-transparent border-2 border-[hsl(var(--gold-light))] shadow-lg flex flex-col items-center justify-center gap-0 transition-all duration-300 hover:bg-[hsl(var(--navy))] hover:scale-110 group ${visible ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}`}
     >
       <Icon name="ChevronUp" size={11} className="text-[hsl(var(--gold-light))] -mb-1" />
       <Icon name="Anchor" size={16} className="text-[hsl(var(--gold-light))] rotate-180 group-hover:rotate-[185deg] transition-transform duration-300" />
