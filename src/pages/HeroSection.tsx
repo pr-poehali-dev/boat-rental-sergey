@@ -3,7 +3,7 @@ import Icon from "@/components/ui/icon";
 import { STATS } from "./data";
 import { scrollTo, ConsultModal } from "./shared";
 
-const HERO_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/files/1c4e4e49-10cf-45c5-a3b6-c57558e62552.jpg";
+const HERO_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek/hero.webp";
 
 const PERKS = [
   { icon: "Anchor", text: "Собственный причал" },

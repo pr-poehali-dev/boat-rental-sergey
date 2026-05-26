@@ -1,16 +1,44 @@
-const HERO_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/files/1c4e4e49-10cf-45c5-a3b6-c57558e62552.jpg";
-const MARINA_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/files/f09295be-12c0-42f9-bf2a-652e6d7eb5b6.jpg";
-const INTERIOR_IMG = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/files/ceceed34-44ba-4637-b64a-9157e4f22944.jpg";
+const CDN = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek";
+
+const HERO_IMG     = `${CDN}/hero.webp`;
+const FLEET1       = `${CDN}/fleet1.jpg`;
+const FLEET2       = `${CDN}/fleet2.jpg`;
+const FLEET3       = `${CDN}/fleet3.jpg`;
+const FLEET4       = `${CDN}/fleet4.jpg`;
+const FLEET5       = `${CDN}/fleet5.jpg`;
+const FLEET6       = `${CDN}/fleet6.jpg`;
+const FLEET7       = `${CDN}/fleet7.jpg`;
+const GIDRO        = `${CDN}/gidro.jpg`;
+const KATER        = `${CDN}/kater.jpg`;
+const TEPLOHOD     = `${CDN}/teplohod.jpg`;
+const HAUSBOT1     = `${CDN}/hausbot1.jpg`;
+const HAUSBOT2     = `${CDN}/hausbot2.jpg`;
+const HAUSBOT3     = `${CDN}/hausbot3.jpg`;
+const BANYA        = `${CDN}/banya.jpg`;
+const RYBALKA      = `${CDN}/rybalka.jpg`;
+const PIKNIK       = `${CDN}/piknik.jpg`;
+const EVENT        = `${CDN}/event.jpg`;
+const ROMANTIC     = `${CDN}/romantic.jpg`;
+const SARATOV_NIGHT = `${CDN}/saratov_night.jpg`;
+const GALLERY1     = `${CDN}/gallery1.jpg`;
+const GALLERY2     = `${CDN}/gallery2.jpg`;
+const GALLERY3     = `${CDN}/gallery3.jpg`;
+const GALLERY4     = `${CDN}/gallery4.jpg`;
+const GALLERY5     = `${CDN}/gallery5.jpg`;
+const GALLERY6     = `${CDN}/gallery6.jpg`;
+const GALLERY7     = `${CDN}/gallery7.jpg`;
+const GALLERY8     = `${CDN}/gallery8.jpg`;
+const GALLERY9     = `${CDN}/gallery9.jpg`;
 
 export const GALLERY_PHOTOS = [
-  { id: 0, src: HERO_IMG,     alt: "Отдых на воде",        span: "col-span-2 row-span-2" },
-  { id: 1, src: MARINA_IMG,   alt: "Волга",                span: "" },
-  { id: 2, src: INTERIOR_IMG, alt: "На воде",              span: "" },
-  { id: 3, src: MARINA_IMG,   alt: "Закат на реке",        span: "" },
-  { id: 4, src: INTERIOR_IMG, alt: "Отдых",                span: "" },
-  { id: 5, src: HERO_IMG,     alt: "Рыбалка",              span: "" },
-  { id: 6, src: MARINA_IMG,   alt: "Пикник на острове",    span: "" },
-  { id: 7, src: INTERIOR_IMG, alt: "Мероприятие на воде",  span: "col-span-2" },
+  { id: 0, src: HERO_IMG,      alt: "Отдых на воде",        span: "col-span-2 row-span-2" },
+  { id: 1, src: FLEET1,        alt: "Волга",                span: "" },
+  { id: 2, src: KATER,         alt: "Катер на Волге",       span: "" },
+  { id: 3, src: GALLERY2,      alt: "Закат на реке",        span: "" },
+  { id: 4, src: GALLERY3,      alt: "Отдых на воде",        span: "" },
+  { id: 5, src: RYBALKA,       alt: "Рыбалка на Волге",     span: "" },
+  { id: 6, src: PIKNIK,        alt: "Пикник на острове",    span: "" },
+  { id: 7, src: EVENT,         alt: "Мероприятие на воде",  span: "col-span-2" },
 ];
 
 export const FLEET = [
@@ -21,7 +49,7 @@ export const FLEET = [
     price: 3500,
     features: ["1–2 человека", "Скорость до 90 км/ч", "Страховка включена", "Инструктаж"],
     desc: "Адреналин и скорость на Волге — аренда гидроциклов для одного или двоих. Инструктаж перед выездом, полная страховка, помощь нашего персонала на берегу.",
-    images: [HERO_IMG, MARINA_IMG, INTERIOR_IMG, HERO_IMG, MARINA_IMG],
+    images: [GIDRO, FLEET3, FLEET4, FLEET5, HERO_IMG],
     badge: "Хит сезона",
   },
   {
@@ -31,7 +59,7 @@ export const FLEET = [
     price: 8000,
     features: ["До 10 человек", "Опытный капитан", "Музыкальная система", "Кейтеринг"],
     desc: "Уютные скоростные катера с опытным капитаном для прогулок, пикников и торжеств. Собственный причал, удобная посадка, выход в любую точку Волги.",
-    images: [MARINA_IMG, INTERIOR_IMG, HERO_IMG, MARINA_IMG, INTERIOR_IMG, HERO_IMG],
+    images: [KATER, FLEET1, FLEET2, FLEET6, FLEET7, HERO_IMG],
     badge: null,
   },
   {
@@ -41,7 +69,7 @@ export const FLEET = [
     price: 5500,
     features: ["До 6 человек", "Права категории В", "GPS-навигатор", "Топливо в стоимость"],
     desc: "Свободный выход на воду без капитана — для тех, кто имеет права на управление маломерным судном. Полный инструктаж, навигатор, страховка на борту.",
-    images: [INTERIOR_IMG, HERO_IMG, MARINA_IMG, INTERIOR_IMG],
+    images: [FLEET2, FLEET3, FLEET6, KATER],
     badge: "Свобода",
   },
   {
@@ -51,7 +79,7 @@ export const FLEET = [
     price: 35000,
     features: ["До 80 человек", "Банкетный зал", "Кухня на борту", "Звуковое оборудование"],
     desc: "Просторные теплоходы и моторные яхты для банкетов, корпоративов и праздников на воде. Профессиональный экипаж, ресторанное меню, DJ-оборудование.",
-    images: [HERO_IMG, MARINA_IMG, INTERIOR_IMG, HERO_IMG, MARINA_IMG, INTERIOR_IMG, HERO_IMG],
+    images: [TEPLOHOD, EVENT, SARATOV_NIGHT, FLEET1, FLEET7, GALLERY4, GALLERY5],
     badge: "VIP",
   },
   {
@@ -61,7 +89,7 @@ export const FLEET = [
     price: 25000,
     features: ["До 8 человек", "Спальные каюты", "Полная кухня", "Терраса"],
     desc: "Плавучий дом на Волге — полноценный отдых у воды без отеля. Спальные каюты, оборудованная кухня, открытая терраса. Стоянка у нашего причала или выход в акваторию.",
-    images: [MARINA_IMG, INTERIOR_IMG, HERO_IMG, MARINA_IMG, INTERIOR_IMG],
+    images: [HAUSBOT1, HAUSBOT2, HAUSBOT3, FLEET4, FLEET5],
     badge: null,
   },
   {
@@ -71,7 +99,7 @@ export const FLEET = [
     price: 15000,
     features: ["Русская баня", "ВИП-апартаменты", "Купель у Волги", "Веники в наличии"],
     desc: "Настоящая русская баня прямо на воде с выходом в Волгу. Роскошные ВИП-апартаменты для отдыха после парилки, свежий речной воздух и полное уединение.",
-    images: [INTERIOR_IMG, HERO_IMG, MARINA_IMG, INTERIOR_IMG, HERO_IMG, MARINA_IMG],
+    images: [BANYA, GALLERY6, GALLERY7, GALLERY8, FLEET1, FLEET2],
     badge: "Эксклюзив",
   },
   {
@@ -81,7 +109,7 @@ export const FLEET = [
     price: 9000,
     features: ["Опытный гид", "Снасти в аренду", "Чистка рыбы", "Уха на борту"],
     desc: "Профессиональная рыбалка на Волге с опытными гидами-рыбаками Саратова. Знаем лучшие места, предоставим снасти, почистим улов и сварим настоящую уху.",
-    images: [HERO_IMG, MARINA_IMG, INTERIOR_IMG, HERO_IMG],
+    images: [RYBALKA, GALLERY1, FLEET3, HERO_IMG],
     badge: "Топ место",
   },
   {
@@ -91,7 +119,7 @@ export const FLEET = [
     price: 12000,
     features: ["Остров на Волге", "Шатёр и мангал", "Трансфер на катере", "Пикник-набор"],
     desc: "Незабываемая прогулка по Волге с высадкой на живописный остров. Мы организуем шатёр, мангал и пикник-набор — вам остаётся только наслаждаться природой.",
-    images: [MARINA_IMG, HERO_IMG, INTERIOR_IMG, MARINA_IMG, HERO_IMG],
+    images: [PIKNIK, GALLERY2, GALLERY3, FLEET5, HERO_IMG],
     badge: "Популярно",
   },
   {
@@ -101,7 +129,7 @@ export const FLEET = [
     price: 0,
     features: ["Свадьбы", "Корпоративы", "Дни рождения", "Фотосессии"],
     desc: "Полная организация любых мероприятий на воде: свадьбы, корпоративы, юбилеи, романтические вечера и фотосессии. Берём на себя всё — от аренды до декора и кейтеринга.",
-    images: [INTERIOR_IMG, MARINA_IMG, HERO_IMG, INTERIOR_IMG, MARINA_IMG, HERO_IMG, INTERIOR_IMG],
+    images: [ROMANTIC, EVENT, TEPLOHOD, GALLERY9, SARATOV_NIGHT, FLEET7, GALLERY4],
     badge: "Под ключ",
   },
 ];
