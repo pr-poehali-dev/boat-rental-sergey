@@ -44,7 +44,7 @@ const ZHENEVA2      = `${CDN}/zheneva2.jpg`;
 const ZHENEVA4      = `${CDN}/zheneva4.jpg`;
 
 export const GALLERY_PHOTOS = [
-  { id: 0, src: BIG_IMAGE,      srcMobile: BANYA_NEW1,    alt: "Закат на Волге в Саратове — отдых на воде",                        span: "col-span-2 row-span-2", mobileSpan: "col-span-2 row-span-2" },
+  { id: 0, src: "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/25177666-e53f-422e-b7d3-3575e710fac4.jpg", srcMobile: BANYA_NEW1, alt: "Моторная яхта на Волге в Саратове — аренда яхты", span: "col-span-2 row-span-2", mobileSpan: "col-span-2 row-span-2" },
   { id: 1, src: RYBALKA,        srcMobile: FLEET2,         alt: "Рыбалка на Волге Саратов — гид с уловом на катере",                span: "",                      mobileSpan: "" },
   { id: 2, src: PIKNIK,         srcMobile: FLEET3,         alt: "Пикник на острове Волга Саратов — шатёр и мангал на берегу",       span: "",                      mobileSpan: "" },
   { id: 3, src: ZHENEVA2,       srcMobile: BANYA_NEW2,     alt: "Аренда хаусбота на Волге Саратов — плавучий дом отдыха",           span: "",                      mobileSpan: "" },
