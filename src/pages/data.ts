@@ -102,7 +102,14 @@ export const FLEET = [
     price: 15000,
     features: ["До 8 человек", "Спальные каюты", "Полная кухня", "Терраса"],
     desc: "Плавучий дом на Волге — полноценный отдых у воды без отеля. Спальные каюты, оборудованная кухня, открытая терраса. Стоянка у нашего причала или выход в акваторию.",
-    images: [ZHENEVA1, ZHENEVA2, ZHENEVA4, FLEET4, FLEET5],
+    images: [
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/5fe786b5-0347-41bb-a381-f5572771e57c.jpg",
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/cd42ec4f-0960-4bc7-8a89-b24861bacd83.jpg",
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/298cda64-d7ad-4fe6-a4e3-69fea75533fe.jpg",
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/e8b9fbf3-7ee7-4c7c-a2bd-9738e975bcc0.jpg",
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/f5dbc9b4-b1c1-41e7-8ca4-79549aa1e5a9.jpg",
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/dc5e9f5a-aac5-437b-b32e-1df20817549e.jpg",
+    ],
     badge: null,
   },
   {
