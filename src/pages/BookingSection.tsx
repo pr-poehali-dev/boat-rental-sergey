@@ -3,22 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { FLEET } from "./data";
-import { GoldDivider, PrivacyLink } from "./shared";
-
-function formatPhone(value: string): string {
-  const digits = value.replace(/\D/g, "").slice(0, 11);
-  if (!digits) return "";
-  let result = "+7";
-  if (digits.length > 1) result += " (" + digits.slice(1, 4);
-  if (digits.length >= 4) result += ") " + digits.slice(4, 7);
-  if (digits.length >= 7) result += "-" + digits.slice(7, 9);
-  if (digits.length >= 9) result += "-" + digits.slice(9, 11);
-  return result;
-}
-
-function validatePhone(phone: string) {
-  return phone.replace(/\D/g, "").length === 11;
-}
+import { GoldDivider, PrivacyLink, formatPhone, handlePhoneInput, validatePhone } from "./shared";
 
 export function BookingSection() {
   const navigate = useNavigate();
@@ -88,7 +73,7 @@ export function BookingSection() {
                     placeholder="+7 (___) ___-__-__"
                     type="tel"
                     value={form.phone}
-                    onChange={(e) => { setForm({ ...form, phone: formatPhone(e.target.value) }); setPhoneError(""); }}
+                    onChange={(e) => { handlePhoneInput(e, form.phone, (v) => setForm({ ...form, phone: v })); setPhoneError(""); }}
                     required
                   />
                   {phoneError && <p className="font-body text-xs text-red-500 mt-1">{phoneError}</p>}

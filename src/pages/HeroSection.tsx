@@ -8,34 +8,44 @@ const CDN2 = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893
 
 const HERO_SLIDES = [
   {
+    // Широкий пейзаж ночного Саратова / вертикальный катер с компанией
     srcDesktop: `${CDN2}/3eb19377-329b-4272-8da4-8a621813510f.jpg`,
     srcMobile: `${CDN2}/a7a7a8fa-d137-4ec3-a4f6-39a59af03313.jpg`,
     label: "Ночной Саратов с Волги",
     mobilePosition: "bg-center",
+    desktopPosition: "bg-center",
   },
   {
+    // Широкий закатный пейзаж / вертикальный кадр у воды
     srcDesktop: `${CDN}/big_image_crop.jpg`,
-    srcMobile: `${CDN}/fleet2.jpg`,
+    srcMobile: `${CDN}/banya_new1.jpg`,
     label: "Закат на Волге",
     mobilePosition: "bg-top",
+    desktopPosition: "bg-center",
   },
   {
-    srcDesktop: `${CDN}/banya_new1.jpg`,
+    // Широкий кадр мероприятия на теплоходе / вертикальный кадр каюты/бани
+    srcDesktop: `${CDN}/event.jpg`,
     srcMobile: `${CDN}/banya_new2.jpg`,
-    label: "Баня на понтоне",
+    label: "Праздник на воде",
     mobilePosition: "bg-top",
+    desktopPosition: "bg-center",
   },
   {
+    // Широкий баня-апартаменты снаружи / вертикальный интерьер
     srcDesktop: `${CDN2}/0473f186-002f-4be0-a2fa-a8d7ad13ba9d.jpg`,
     srcMobile: `${CDN}/banya_new3.jpg`,
     label: "Баня и апартаменты на воде",
     mobilePosition: "bg-top",
+    desktopPosition: "bg-center",
   },
   {
-    srcDesktop: `${CDN}/kasatka1.jpg`,
-    srcMobile: `${CDN}/fleet3.jpg`,
-    label: "Теплоход на Волге",
-    mobilePosition: "bg-top",
+    // Широкий пейзаж рыбалки / вертикальный кадр флота
+    srcDesktop: `${CDN}/rybalka.jpg`,
+    srcMobile: `${CDN}/fleet4.jpg`,
+    label: "Рыбалка на Волге",
+    mobilePosition: "bg-center",
+    desktopPosition: "bg-center",
   },
 ];
 
@@ -66,7 +76,7 @@ export function HeroSection() {
           style={{ opacity: i === slide ? 1 : 0 }}
         >
           <div
-            className="hidden md:block absolute inset-0 bg-cover bg-center"
+            className={`hidden md:block absolute inset-0 bg-cover ${sl.desktopPosition}`}
             style={{ backgroundImage: `url(${sl.srcDesktop})` }}
           />
           <div

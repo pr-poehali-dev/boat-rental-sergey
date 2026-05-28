@@ -44,14 +44,14 @@ const ZHENEVA2      = `${CDN}/zheneva2.jpg`;
 const ZHENEVA4      = `${CDN}/zheneva4.jpg`;
 
 export const GALLERY_PHOTOS = [
-  { id: 0, src: BIG_IMAGE,     srcMobile: BANYA_NEW1,   alt: "Закат на Волге в Саратове — отдых на воде",                        span: "col-span-2 row-span-2", mobileSpan: "col-span-2 row-span-2" },
-  { id: 1, src: KASATKA1,      srcMobile: FLEET2,        alt: "Аренда яхты в Саратове — моторная яхта на Волге",                  span: "",                      mobileSpan: "" },
-  { id: 2, src: KATER,         srcMobile: FLEET3,        alt: "Аренда катера в Саратове у причала на Волге",                      span: "",                      mobileSpan: "" },
-  { id: 3, src: ZHENEVA1,      srcMobile: BANYA_NEW2,    alt: "Аренда хаусбота на Волге Саратов — плавучий дом отдыха",           span: "",                      mobileSpan: "" },
-  { id: 4, src: BANYA_NEW1,    srcMobile: BANYA_NEW3,    alt: "Баня на воде Саратов — ВИП баня на понтоне на Волге",              span: "",                      mobileSpan: "" },
-  { id: 5, src: RYBALKA,       srcMobile: KASATKA1,      alt: "Рыбалка на Волге Саратов — гид с уловом на катере",                span: "",                      mobileSpan: "" },
-  { id: 6, src: PIKNIK,        srcMobile: ZHENEVA1,      alt: "Пикник на острове Волга Саратов — шатёр и мангал на берегу",       span: "",                      mobileSpan: "" },
-  { id: 7, src: EVENT,         srcMobile: KASATKA2,      alt: "Организация мероприятий на воде Саратов — праздник на теплоходе",  span: "col-span-2",            mobileSpan: "col-span-2" },
+  { id: 0, src: BIG_IMAGE,      srcMobile: BANYA_NEW1,    alt: "Закат на Волге в Саратове — отдых на воде",                        span: "col-span-2 row-span-2", mobileSpan: "col-span-2 row-span-2" },
+  { id: 1, src: RYBALKA,        srcMobile: FLEET2,         alt: "Рыбалка на Волге Саратов — гид с уловом на катере",                span: "",                      mobileSpan: "" },
+  { id: 2, src: PIKNIK,         srcMobile: FLEET3,         alt: "Пикник на острове Волга Саратов — шатёр и мангал на берегу",       span: "",                      mobileSpan: "" },
+  { id: 3, src: ZHENEVA2,       srcMobile: BANYA_NEW2,     alt: "Аренда хаусбота на Волге Саратов — плавучий дом отдыха",           span: "",                      mobileSpan: "" },
+  { id: 4, src: SARATOV_NIGHT,  srcMobile: BANYA_NEW3,     alt: "Ночная прогулка по Волге Саратов — огни Саратова с воды",          span: "",                      mobileSpan: "" },
+  { id: 5, src: KATER,          srcMobile: KASATKA10,      alt: "Аренда катера в Саратове у причала на Волге",                      span: "",                      mobileSpan: "" },
+  { id: 6, src: ROMANTIC,       srcMobile: KASATKA18,      alt: "Романтическая прогулка на катере Саратов — закат на Волге",        span: "",                      mobileSpan: "" },
+  { id: 7, src: EVENT,          srcMobile: ZHENEVA1,       alt: "Организация мероприятий на воде Саратов — праздник на теплоходе",  span: "col-span-2",            mobileSpan: "col-span-2" },
 ];
 
 export const FLEET = [

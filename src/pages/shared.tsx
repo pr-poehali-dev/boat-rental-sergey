@@ -29,20 +29,35 @@ export function PrivacyLink() {
   );
 }
 
-function formatPhone(value: string): string {
-  const digits = value.replace(/\D/g, "").slice(0, 11);
-  if (!digits) return "";
-  let result = "+7";
-  if (digits.length > 1) result += " (" + digits.slice(1, 4);
-  if (digits.length >= 4) result += ") " + digits.slice(4, 7);
-  if (digits.length >= 7) result += "-" + digits.slice(7, 9);
-  if (digits.length >= 9) result += "-" + digits.slice(9, 11);
-  return result;
+export function formatPhone(digits: string): string {
+  const d = digits.replace(/\D/g, "").slice(0, 11);
+  if (!d) return "";
+  let r = "+7";
+  if (d.length > 1) r += " (" + d.slice(1, 4);
+  if (d.length >= 4) r += ") " + d.slice(4, 7);
+  if (d.length >= 7) r += "-" + d.slice(7, 9);
+  if (d.length >= 9) r += "-" + d.slice(9, 11);
+  return r;
 }
 
-function validatePhone(phone: string): boolean {
-  const digits = phone.replace(/\D/g, "");
-  return digits.length === 11;
+export function handlePhoneInput(
+  e: React.ChangeEvent<HTMLInputElement>,
+  prev: string,
+  set: (v: string) => void
+) {
+  const raw = e.target.value;
+  const digits = raw.replace(/\D/g, "");
+  const prevDigits = prev.replace(/\D/g, "");
+  // Если цифр стало меньше (удаление) — просто пересчитываем
+  if (digits.length <= prevDigits.length) {
+    set(formatPhone(digits));
+  } else {
+    set(formatPhone(digits));
+  }
+}
+
+export function validatePhone(phone: string): boolean {
+  return phone.replace(/\D/g, "").length === 11;
 }
 
 async function sendFormEmail(data: { name: string; phone: string; message?: string; formId: string }) {
@@ -65,7 +80,7 @@ export function ConsultModal({ onClose }: { onClose: () => void }) {
   const [loading, setLoading] = useState(false);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, phone: formatPhone(e.target.value) });
+    handlePhoneInput(e, form.phone, (v) => setForm({ ...form, phone: v }));
     setPhoneError("");
   };
 
