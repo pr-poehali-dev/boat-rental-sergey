@@ -8,29 +8,34 @@ const CDN2 = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893
 
 const HERO_SLIDES = [
   {
-    srcDesktop: `${CDN}/kater.jpg`,
-    srcMobile: `${CDN}/fleet1.jpg`,
-    label: "Белый катер на Волге",
+    srcDesktop: `${CDN2}/3eb19377-329b-4272-8da4-8a621813510f.jpg`,
+    srcMobile: `${CDN2}/a7a7a8fa-d137-4ec3-a4f6-39a59af03313.jpg`,
+    label: "Ночной Саратов с Волги",
+    mobilePosition: "bg-center",
   },
   {
     srcDesktop: `${CDN}/big_image_crop.jpg`,
     srcMobile: `${CDN}/fleet2.jpg`,
     label: "Закат на Волге",
+    mobilePosition: "bg-top",
   },
   {
     srcDesktop: `${CDN}/banya_new1.jpg`,
     srcMobile: `${CDN}/banya_new2.jpg`,
     label: "Баня на понтоне",
+    mobilePosition: "bg-top",
   },
   {
     srcDesktop: `${CDN2}/0473f186-002f-4be0-a2fa-a8d7ad13ba9d.jpg`,
     srcMobile: `${CDN}/banya_new3.jpg`,
     label: "Баня и апартаменты на воде",
+    mobilePosition: "bg-top",
   },
   {
-    srcDesktop: `${CDN}/gidro.jpg`,
+    srcDesktop: `${CDN}/kasatka1.jpg`,
     srcMobile: `${CDN}/fleet3.jpg`,
-    label: "Гидроциклы",
+    label: "Теплоход на Волге",
+    mobilePosition: "bg-top",
   },
 ];
 
@@ -65,7 +70,7 @@ export function HeroSection() {
             style={{ backgroundImage: `url(${sl.srcDesktop})` }}
           />
           <div
-            className="block md:hidden absolute inset-0 bg-cover bg-top"
+            className={`block md:hidden absolute inset-0 bg-cover ${sl.mobilePosition}`}
             style={{ backgroundImage: `url(${sl.srcMobile})` }}
           />
         </div>
