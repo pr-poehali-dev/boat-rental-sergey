@@ -8,7 +8,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SERVICES, REVIEWS, STATS, FAQ_ITEMS, GALLERY_PHOTOS } from "./data";
-import { scrollTo, StarRating, GoldDivider, PrivacyModal, ConsultModal } from "./shared";
+import { scrollTo, StarRating, GoldDivider, ConsultModal } from "./shared";
 
 // ─── Services ─────────────────────────────────────────────────────────────────
 
@@ -193,17 +193,22 @@ export function GallerySection() {
           <p className="font-body text-sm text-muted-foreground mt-3">Нажмите на любое фото, чтобы открыть просмотр</p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[220px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-[220px] md:auto-rows-[220px]">
           {GALLERY_PHOTOS.map((photo, i) => (
             <div
               key={photo.id}
-              className={`relative overflow-hidden rounded-xl cursor-pointer group ${photo.span}`}
+              className={`relative overflow-hidden rounded-xl cursor-pointer group md:${photo.span} ${photo.mobileSpan}`}
               onClick={() => setFullscreen(i)}
             >
               <img
                 src={photo.src}
                 alt={photo.alt}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="hidden md:block w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <img
+                src={photo.srcMobile}
+                alt={photo.alt}
+                className="block md:hidden w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
                 <div className="w-12 h-12 rounded-full bg-white/0 group-hover:bg-white/90 transition-all duration-300 flex items-center justify-center scale-75 group-hover:scale-100">
@@ -251,12 +256,10 @@ export function FaqSection() {
 // ─── Contacts ─────────────────────────────────────────────────────────────────
 
 export function ContactsSection() {
-  const [showPrivacy, setShowPrivacy] = useState(false);
   const [showConsult, setShowConsult] = useState(false);
 
   return (
     <section id="contacts" className="py-24 ocean-gradient">
-      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
       {showConsult && <ConsultModal onClose={() => setShowConsult(false)} />}
 
       <div className="container mx-auto px-6">
@@ -319,10 +322,8 @@ export function ContactsSection() {
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
 export function Footer() {
-  const [showPrivacy, setShowPrivacy] = useState(false);
   return (
     <footer className="bg-navy py-14" itemScope itemType="https://schema.org/LocalBusiness">
-      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
       <meta itemProp="name" content="Volga-Viatek" />
       <meta itemProp="telephone" content="+79271183131" />
       <meta itemProp="url" content="https://volga-viatek.ru" />
@@ -456,10 +457,9 @@ export function Footer() {
 
         {/* Нижняя строка */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <button onClick={() => setShowPrivacy(true)}
-            className="font-body text-xs text-white/40 hover:text-white/70 underline transition-colors">
+          <a href="/politica" className="font-body text-xs text-white/40 hover:text-white/70 underline transition-colors">
             Политика конфиденциальности
-          </button>
+          </a>
           <p className="font-body text-xs text-white/25 text-center">
             © 2026 Volga-Viatek. Аренда катеров и яхт в Саратове — все права защищены.
           </p>

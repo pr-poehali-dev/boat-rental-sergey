@@ -1,22 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { FLEET } from "./data";
-import { GoldDivider, PrivacyModal } from "./shared";
+import { GoldDivider, PrivacyLink } from "./shared";
+
+function formatPhone(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (!digits) return "";
+  let result = "+7";
+  if (digits.length > 1) result += " (" + digits.slice(1, 4);
+  if (digits.length >= 4) result += ") " + digits.slice(4, 7);
+  if (digits.length >= 7) result += "-" + digits.slice(7, 9);
+  if (digits.length >= 9) result += "-" + digits.slice(9, 11);
+  return result;
+}
 
 function validatePhone(phone: string) {
-  return phone.replace(/\D/g, "").length >= 10;
+  return phone.replace(/\D/g, "").length === 11;
 }
 
 export function BookingSection() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "", phone: "",
     yacht: "", date: "", time: "",
     duration: "1", guests: "1–2",
     agree: false,
   });
-  const [submitted, setSubmitted] = useState(false);
-  const [showPrivacy, setShowPrivacy] = useState(false);
   const [phoneError, setPhoneError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -26,10 +37,10 @@ export function BookingSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validatePhone(form.phone)) { setPhoneError("Введите корректный номер телефона"); return; }
+    if (!validatePhone(form.phone)) { setPhoneError("Введите полный номер телефона (11 цифр)"); return; }
     setPhoneError("");
     setLoading(true);
-    await fetch("https://functions.poehali.dev/b5dbfd1f-fb97-41db-a28b-c1eef3de3c73", {
+    const res = await fetch("https://functions.poehali.dev/b5dbfd1f-fb97-41db-a28b-c1eef3de3c73", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -39,7 +50,11 @@ export function BookingSection() {
       }),
     }).catch(() => null);
     setLoading(false);
-    setSubmitted(true);
+    if (res && res.ok) {
+      navigate("/spasibo");
+    } else {
+      setPhoneError("Ошибка отправки. Позвоните нам: +7 (927) 118-31-31");
+    }
   };
 
   const inputClass = "w-full font-body text-sm px-4 py-3 border border-border rounded-xl bg-white focus:outline-none focus:border-ocean focus:ring-1 focus:ring-ocean/30 transition-all placeholder:text-muted-foreground/60";
@@ -47,7 +62,6 @@ export function BookingSection() {
 
   return (
     <section id="booking" className="py-24 bg-white">
-      {showPrivacy && <PrivacyModal onClose={() => setShowPrivacy(false)} />}
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
@@ -59,174 +73,152 @@ export function BookingSection() {
             </p>
           </div>
 
-          {submitted ? (
-            <div className="text-center py-20">
-              <div className="w-20 h-20 rounded-full bg-ocean-pale flex items-center justify-center mx-auto mb-6">
-                <Icon name="Check" size={36} className="text-ocean" />
-              </div>
-              <h3 className="font-display text-3xl font-semibold text-navy mb-3">Заявка отправлена!</h3>
-              <p className="font-body text-muted-foreground max-w-md mx-auto">
-                Наш менеджер свяжется с вами в течение 30 минут для подтверждения бронирования.
-              </p>
-              <button onClick={() => setSubmitted(false)}
-                className="mt-8 px-6 py-2.5 border border-ocean text-ocean font-body text-sm rounded-full hover:bg-ocean-pale transition-colors">
-                Новая заявка
-              </button>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-3 gap-8">
-              <form onSubmit={handleSubmit} className="md:col-span-2 space-y-5">
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className={labelClass}>Ваше имя</label>
-                    <input className={inputClass} placeholder="Александр" value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Телефон *</label>
-                    <input className={`${inputClass} ${phoneError ? "border-red-400" : ""}`} placeholder="+7 (927) 118-31-31" type="tel" value={form.phone}
-                      onChange={(e) => { setForm({ ...form, phone: e.target.value }); setPhoneError(""); }} required />
-                    {phoneError && <p className="font-body text-xs text-red-500 mt-1">{phoneError}</p>}
-                  </div>
-                </div>
-
+          <div className="grid md:grid-cols-3 gap-8">
+            <form onSubmit={handleSubmit} className="md:col-span-2 space-y-5">
+              <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <label className={labelClass}>Выберите услугу</label>
-                  <select className={inputClass} value={form.yacht}
-                    onChange={(e) => setForm({ ...form, yacht: e.target.value })} required>
-                    <option value="">— Выберите из услуг —</option>
-                    {FLEET.filter((y) => y.price > 0).map((y) => (
-                      <option key={y.id} value={y.name}>
-                        {y.name} (от {y.price.toLocaleString("ru-RU")} ₽/ч)
+                  <label className={labelClass}>Ваше имя</label>
+                  <input className={inputClass} placeholder="Александр" value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+                </div>
+                <div>
+                  <label className={labelClass}>Телефон *</label>
+                  <input
+                    className={`${inputClass} ${phoneError ? "border-red-400" : ""}`}
+                    placeholder="+7 (___) ___-__-__"
+                    type="tel"
+                    value={form.phone}
+                    onChange={(e) => { setForm({ ...form, phone: formatPhone(e.target.value) }); setPhoneError(""); }}
+                    required
+                  />
+                  {phoneError && <p className="font-body text-xs text-red-500 mt-1">{phoneError}</p>}
+                </div>
+              </div>
+
+              <div>
+                <label className={labelClass}>Выберите услугу</label>
+                <select className={inputClass} value={form.yacht}
+                  onChange={(e) => setForm({ ...form, yacht: e.target.value })} required>
+                  <option value="">— Выберите из услуг —</option>
+                  {FLEET.filter((y) => y.price > 0).map((y) => (
+                    <option key={y.id} value={y.name}>
+                      {y.name} (от {y.price.toLocaleString("ru-RU")} ₽/ч)
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="grid sm:grid-cols-3 gap-5">
+                <div>
+                  <label className={labelClass}>Дата начала</label>
+                  <input className={inputClass} type="date" value={form.date}
+                    onChange={(e) => setForm({ ...form, date: e.target.value })} required />
+                </div>
+                <div>
+                  <label className={labelClass}>Время</label>
+                  <select className={inputClass} value={form.time}
+                    onChange={(e) => setForm({ ...form, time: e.target.value })}>
+                    <option value="">Время</option>
+                    {["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00"].map((t) => (
+                      <option key={t} value={t}>{t}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Часов</label>
+                  <select className={inputClass} value={form.duration}
+                    onChange={(e) => setForm({ ...form, duration: e.target.value })}>
+                    {[1,2,3,4,5,6,8,10,12].map((d) => (
+                      <option key={d} value={d}>
+                        {d} {d === 1 ? "час" : d < 5 ? "часа" : "часов"}
                       </option>
                     ))}
                   </select>
                 </div>
+              </div>
 
-                <div className="grid sm:grid-cols-3 gap-5">
-                  <div>
-                    <label className={labelClass}>Дата начала</label>
-                    <input className={inputClass} type="date" value={form.date}
-                      onChange={(e) => setForm({ ...form, date: e.target.value })} required />
-                  </div>
-                  <div>
-                    <label className={labelClass}>Время</label>
-                    <select className={inputClass} value={form.time}
-                      onChange={(e) => setForm({ ...form, time: e.target.value })}>
-                      <option value="">Время</option>
-                      {["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00"].map((t) => (
-                        <option key={t} value={t}>{t}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className={labelClass}>Часов</label>
-                    <select className={inputClass} value={form.duration}
-                      onChange={(e) => setForm({ ...form, duration: e.target.value })}>
-                      {[1,2,3,4,5,6,8,10,12].map((d) => (
-                        <option key={d} value={d}>
-                          {d} {d === 1 ? "час" : d < 5 ? "часа" : "часов"}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className={labelClass}>Количество гостей</label>
-                  <div className="flex gap-3 flex-wrap">
-                    {["1–2","3–4","5–6","7–8","9+"].map((g) => (
-                      <button key={g} type="button" onClick={() => setForm({ ...form, guests: g })}
-                        className={`px-4 py-2 rounded-full font-body text-sm border transition-all ${
-                          form.guests === g
-                            ? "bg-navy text-[hsl(var(--gold-light))] border-navy"
-                            : "bg-white text-navy border-border hover:border-ocean"
-                        }`}>
-                        {g}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <label className="flex items-start gap-3 cursor-pointer group">
-                  <div className={`mt-0.5 w-5 h-5 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all ${
-                    form.agree ? "bg-navy border-navy" : "border-border group-hover:border-ocean"
-                  }`}
-                    onClick={() => setForm({ ...form, agree: !form.agree })}>
-                    {form.agree && <Icon name="Check" size={12} className="text-[hsl(var(--gold-light))]" />}
-                  </div>
-                  <input type="checkbox" checked={form.agree} onChange={(e) => setForm({ ...form, agree: e.target.checked })} required className="sr-only" />
-                  <span className="font-body text-sm text-navy/70 leading-relaxed">
-                    Я согласен(а) с{" "}
-                    <button type="button" onClick={() => setShowPrivacy(true)}
-                      className="text-ocean underline hover:text-navy transition-colors">
-                      Политикой конфиденциальности
-                    </button>{" "}
-                    и даю согласие на обработку персональных данных
-                  </span>
-                </label>
-
-                <button type="submit"
-                  className="w-full py-4 bg-navy text-[hsl(var(--gold-light))] font-body font-semibold rounded-xl hover:bg-ocean transition-colors text-sm tracking-wide mt-2 disabled:opacity-50"
-                  disabled={!form.agree || loading}>
-                  {loading ? "Отправляем..." : "Отправить заявку"}
-                </button>
-              </form>
-
-              <div className="hidden md:block space-y-5">
-                <div className="bg-navy rounded-2xl p-6 text-white">
-                  <h4 className="font-display text-xl font-semibold mb-4 text-[hsl(var(--gold-light))]">Калькулятор</h4>
-                  {form.yacht ? (
-                    <>
-                      <div className="space-y-3 mb-5">
-                        <div className="flex justify-between items-center font-body text-sm">
-                          <span className="text-white/60">Услуга</span>
-                          <span className="font-medium text-white text-right text-xs leading-snug">{form.yacht}</span>
-                        </div>
-                        <div className="flex justify-between items-center font-body text-sm">
-                          <span className="text-white/60">Цена в час</span>
-                          <span className="font-medium text-white">{hourlyPrice.toLocaleString("ru-RU")} ₽</span>
-                        </div>
-                        <div className="flex justify-between items-center font-body text-sm">
-                          <span className="text-white/60">Часов</span>
-                          <span className="font-medium text-white">{form.duration}</span>
-                        </div>
-                        <div className="h-px bg-white/20" />
-                        <div className="flex justify-between items-center">
-                          <span className="font-body text-sm text-white/60">Итого</span>
-                          <span className="font-display text-2xl font-semibold text-gold">
-                            {totalPrice.toLocaleString("ru-RU")} ₽
-                          </span>
-                        </div>
-                      </div>
-                      <p className="font-body text-xs text-white/40">* Окончательная стоимость уточняется менеджером</p>
-                    </>
-                  ) : (
-                    <div className="py-6 text-center">
-                      <Icon name="Calculator" size={36} className="text-white/20 mx-auto mb-3" />
-                      <p className="font-body text-sm text-white/40">Выберите услугу для расчёта</p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="bg-sand rounded-2xl p-5 space-y-4">
-                  {[
-                    { icon: "Users", text: "Профессиональный экипаж" },
-                    { icon: "Clock", text: "Ответ за 30 минут" },
-                    { icon: "RefreshCw", text: "Гибкая отмена" },
-                    { icon: "Anchor", text: "Собственный причал" },
-                  ].map((item) => (
-                    <div key={item.text} className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-ocean-pale flex items-center justify-center flex-shrink-0">
-                        <Icon name={item.icon as any} size={15} className="text-ocean" />
-                      </div>
-                      <span className="font-body text-sm text-navy/80">{item.text}</span>
-                    </div>
+              <div>
+                <label className={labelClass}>Количество гостей</label>
+                <div className="flex gap-3 flex-wrap">
+                  {["1–2","3–4","5–6","7–8","9+"].map((g) => (
+                    <button key={g} type="button" onClick={() => setForm({ ...form, guests: g })}
+                      className={`px-4 py-2 rounded-full font-body text-sm border transition-all ${
+                        form.guests === g
+                          ? "bg-navy text-[hsl(var(--gold-light))] border-navy"
+                          : "bg-white text-navy border-border hover:border-ocean"
+                      }`}>
+                      {g}
+                    </button>
                   ))}
                 </div>
               </div>
+
+              <label className="flex items-start gap-3 cursor-pointer group" onClick={() => setForm({ ...form, agree: !form.agree })}>
+                <div className={`mt-0.5 w-5 h-5 rounded border-2 flex-shrink-0 flex items-center justify-center transition-all ${
+                  form.agree ? "bg-navy border-navy" : "border-border group-hover:border-ocean"
+                }`}>
+                  {form.agree && <Icon name="Check" size={12} className="text-[hsl(var(--gold-light))]" />}
+                </div>
+                <span className="font-body text-sm text-navy/70 leading-relaxed">
+                  Я согласен(а) с{" "}<PrivacyLink />{" "}и даю согласие на обработку персональных данных
+                </span>
+              </label>
+
+              <button type="submit"
+                disabled={!form.agree || loading}
+                className="w-full py-4 bg-navy text-[hsl(var(--gold-light))] font-body font-semibold rounded-xl hover:bg-ocean transition-colors disabled:opacity-50 text-sm tracking-wide">
+                {loading ? "Отправляем заявку..." : "Отправить заявку на бронирование"}
+              </button>
+            </form>
+
+            <div className="space-y-4">
+              {selectedYacht && (
+                <div className="bg-navy rounded-2xl p-6 text-white">
+                  <p className="font-body text-xs text-white/50 tracking-widest uppercase mb-3">Ваш выбор</p>
+                  <h4 className="font-display text-lg font-semibold mb-2">{selectedYacht.name}</h4>
+                  <div className="h-px bg-white/10 my-4" />
+                  <div className="space-y-2">
+                    <div className="flex justify-between font-body text-sm">
+                      <span className="text-white/60">Стоимость/ч</span>
+                      <span className="text-[hsl(var(--gold-light))]">{hourlyPrice.toLocaleString("ru-RU")} ₽</span>
+                    </div>
+                    <div className="flex justify-between font-body text-sm">
+                      <span className="text-white/60">Продолжительность</span>
+                      <span>{form.duration} ч</span>
+                    </div>
+                    <div className="h-px bg-white/10 my-2" />
+                    <div className="flex justify-between font-body font-semibold">
+                      <span className="text-white/80">Итого от</span>
+                      <span className="text-[hsl(var(--gold-light))] text-lg">{totalPrice.toLocaleString("ru-RU")} ₽</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="bg-pearl rounded-2xl p-6 space-y-4">
+                <p className="font-body text-xs text-navy/50 tracking-widest uppercase">Включено в аренду</p>
+                {[
+                  { icon: "Shield", text: "Страховка на борту" },
+                  { icon: "Users", text: "Опытный капитан" },
+                  { icon: "MapPin", text: "Выезд от причала" },
+                  { icon: "Phone", text: "Поддержка 9:00–21:00" },
+                ].map((f) => (
+                  <div key={f.text} className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg ocean-gradient flex items-center justify-center flex-shrink-0">
+                      <Icon name={f.icon as any} size={14} className="text-white" />
+                    </div>
+                    <span className="font-body text-sm text-navy/70">{f.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              <a href="tel:+79271183131"
+                className="flex items-center justify-center gap-2 w-full py-3.5 bg-white border border-border rounded-xl font-body text-sm text-navy hover:border-ocean hover:text-ocean transition-all">
+                <Icon name="Phone" size={16} className="text-ocean" />
+                +7 (927) 118-31-31
+              </a>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </section>

@@ -4,15 +4,34 @@ import { STATS } from "./data";
 import { scrollTo, ConsultModal } from "./shared";
 
 const CDN = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/viatek";
-
-const NEW_PHOTO = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/0473f186-002f-4be0-a2fa-a8d7ad13ba9d.jpg";
+const CDN2 = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket";
 
 const HERO_SLIDES = [
-  { src: `${CDN}/big_image_crop.jpg`, label: "Закат на Волге" },
-  { src: `${CDN}/banya_new1.jpg`,     label: "Баня на понтоне" },
-  { src: `${CDN}/fleet1.jpg`,         label: "Красивый катер" },
-  { src: NEW_PHOTO,                   label: "Баня и апартаменты на воде" },
-  { src: `${CDN}/gidro.jpg`,          label: "Гидроциклы" },
+  {
+    srcDesktop: `${CDN}/fleet1.jpg`,
+    srcMobile: `${CDN}/kater.jpg`,
+    label: "Красивый катер",
+  },
+  {
+    srcDesktop: `${CDN}/big_image_crop.jpg`,
+    srcMobile: `${CDN}/fleet2.jpg`,
+    label: "Закат на Волге",
+  },
+  {
+    srcDesktop: `${CDN}/banya_new1.jpg`,
+    srcMobile: `${CDN}/banya_new2.jpg`,
+    label: "Баня на понтоне",
+  },
+  {
+    srcDesktop: `${CDN2}/0473f186-002f-4be0-a2fa-a8d7ad13ba9d.jpg`,
+    srcMobile: `${CDN}/banya_new3.jpg`,
+    label: "Баня и апартаменты на воде",
+  },
+  {
+    srcDesktop: `${CDN}/gidro.jpg`,
+    srcMobile: `${CDN}/fleet3.jpg`,
+    label: "Гидроциклы",
+  },
 ];
 
 const PERKS = [
@@ -37,10 +56,19 @@ export function HeroSection() {
 
       {HERO_SLIDES.map((sl, i) => (
         <div
-          key={sl.src}
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
-          style={{ backgroundImage: `url(${sl.src})`, opacity: i === slide ? 1 : 0 }}
-        />
+          key={sl.srcDesktop}
+          className="absolute inset-0 transition-opacity duration-1000"
+          style={{ opacity: i === slide ? 1 : 0 }}
+        >
+          <div
+            className="hidden md:block absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: `url(${sl.srcDesktop})` }}
+          />
+          <div
+            className="block md:hidden absolute inset-0 bg-cover bg-top"
+            style={{ backgroundImage: `url(${sl.srcMobile})` }}
+          />
+        </div>
       ))}
 
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex gap-2">
