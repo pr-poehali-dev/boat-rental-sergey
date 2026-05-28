@@ -191,6 +191,9 @@ export function BookingSection() {
                       <span className="text-white/80">Итого от</span>
                       <span className="text-[hsl(var(--gold-light))] text-lg">{totalPrice.toLocaleString("ru-RU")} ₽</span>
                     </div>
+                    <p className="font-body text-xs text-white/40 mt-3 leading-relaxed">
+                      *Точную стоимость скажет менеджер. Не все услуги считаются&nbsp;/в&nbsp;час.
+                    </p>
                   </div>
                 </div>
               )}

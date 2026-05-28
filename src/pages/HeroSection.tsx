@@ -8,9 +8,9 @@ const CDN2 = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893
 
 const HERO_SLIDES = [
   {
-    srcDesktop: `${CDN}/fleet1.jpg`,
-    srcMobile: `${CDN}/kater.jpg`,
-    label: "Красивый катер",
+    srcDesktop: `${CDN}/kater.jpg`,
+    srcMobile: `${CDN}/fleet1.jpg`,
+    label: "Белый катер на Волге",
   },
   {
     srcDesktop: `${CDN}/big_image_crop.jpg`,
