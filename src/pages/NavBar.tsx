@@ -5,7 +5,7 @@ import { scrollTo, ConsultModal } from "./shared";
 const messengers = [
   { label: "WhatsApp", color: "#25D366", letter: "W", href: "https://wa.me/79271183131" },
   { label: "Telegram", color: "#2AABEE", letter: "T", href: "https://t.me/ViatekVlad" },
-  { label: "Max", color: "#FF6B35", letter: "M", href: "https://t.me/ViatekVlad" },
+  { label: "Max", color: "#FF6B35", letter: "M", href: "https://max.ru/u/f9LHodD0cOJkej7d-HfANemv0g86aPcGmyAFYiLztOgPKrQRlHxwAnFxlFY" },
 ];
 
 const links = [
