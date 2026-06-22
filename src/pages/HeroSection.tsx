@@ -8,42 +8,37 @@ const CDN2 = "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893
 
 const HERO_SLIDES = [
   {
-    // Широкий пейзаж ночного Саратова / вертикальный катер с компанией
-    srcDesktop: `${CDN2}/3eb19377-329b-4272-8da4-8a621813510f.jpg`,
+    srcDesktop: `${CDN2}/cf9934ae-54db-4b8a-9ba3-e7050a0033b2.jpg`,
     srcMobile: `${CDN2}/a7a7a8fa-d137-4ec3-a4f6-39a59af03313.jpg`,
     label: "Ночной Саратов с Волги",
     mobilePosition: "bg-center",
     desktopPosition: "bg-center",
   },
   {
-    // Широкий закатный пейзаж / вертикальный кадр у воды
-    srcDesktop: `${CDN}/big_image_crop.jpg`,
+    srcDesktop: `${CDN2}/d8a18895-2ce2-432c-8432-e572aa805db7.png`,
     srcMobile: `${CDN}/banya_new1.jpg`,
-    label: "Закат на Волге",
+    label: "Теплоход на Волге",
     mobilePosition: "bg-top",
     desktopPosition: "bg-center",
   },
   {
-    // Широкий кадр мероприятия на теплоходе / вертикальный кадр каюты/бани
-    srcDesktop: `${CDN}/event.jpg`,
+    srcDesktop: `${CDN2}/d366a202-b334-44e2-8e46-659b751dc493.jpg`,
     srcMobile: `${CDN}/banya_new2.jpg`,
-    label: "Праздник на воде",
+    label: "Отдых на воде",
     mobilePosition: "bg-top",
     desktopPosition: "bg-center",
   },
   {
-    // Широкий баня-апартаменты снаружи / вертикальный интерьер
-    srcDesktop: `${CDN2}/0473f186-002f-4be0-a2fa-a8d7ad13ba9d.jpg`,
+    srcDesktop: `${CDN2}/f941298f-0328-4d22-85bf-1b33d12edc03.png`,
     srcMobile: `${CDN}/banya_new3.jpg`,
-    label: "Баня и апартаменты на воде",
+    label: "Баня и причал на Волге",
     mobilePosition: "bg-top",
     desktopPosition: "bg-center",
   },
   {
-    // Широкий пейзаж рыбалки / вертикальный кадр флота
-    srcDesktop: `${CDN}/rybalka.jpg`,
+    srcDesktop: `${CDN2}/3ecdc1b9-cc29-4df9-b334-68c781977c70.jpg`,
     srcMobile: `${CDN}/fleet4.jpg`,
-    label: "Рыбалка на Волге",
+    label: "Праздник на яхте",
     mobilePosition: "bg-center",
     desktopPosition: "bg-center",
   },
