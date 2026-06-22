@@ -82,7 +82,13 @@ export const FLEET = [
     price: 4000,
     features: ["До 6 человек", "Права категории В", "GPS-навигатор", "Топливо в стоимость"],
     desc: "Свободный выход на воду без капитана — для тех, кто имеет права на управление маломерным судном. Полный инструктаж, навигатор, страховка на борту.",
-    images: [FLEET2, FLEET3, FLEET6, KATER],
+    images: [
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/bd5a4ae5-1319-468c-99cb-fc71497d376f.jpg",
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/1202e671-1005-4e4f-bb4c-76d3b3032a6c.jpg",
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/0bb08197-e54a-471c-997d-a30b6c3b7f9c.jpg",
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/35eed896-ddcc-4f3f-a6c0-ac5579dadaf5.jpg",
+      "https://cdn.poehali.dev/projects/0a1fcfcb-4fd2-47cb-863a-9d64fd893ec8/bucket/3782b8d0-cb58-465d-ae30-211d36155396.jpg",
+    ],
     badge: "Свобода",
   },
   {
